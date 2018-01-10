@@ -45,6 +45,19 @@
                 <li role="presentation"><a href="vacatures.html">Vacatures</a></li>
                 <li role="presentation"><a href="contact.html" class="active">Contact</a></li>
               </ul>
+              <form class="form-inline" action="/action_page.php">
+  <div class="form-group">
+    <label for="email" class="text-success">Email adress:</label>
+    <input type="email" class="form-control" id="email">
+  </div>
+  <div class="form-group">
+    <label for="pwd" class="text-success">Wachtwoord:</label>
+    <input type="password" class="form-control" id="pwd">
+  </div>
+ 
+  <button type="submit" class="btn btn-succes ">Inloggen</button>
+</form>
+<br>
             </div>
           </div>
         </div>
@@ -68,6 +81,7 @@
   <section id="contact-page">
     <div class="container">
       <div class="center">
+
         <h2>Neem contact met ons op</h2>
        
       </div>
@@ -76,6 +90,7 @@
         <div class="col-md-6 col-md-offset-3">
           <div id="sendmessage">Bedankt voor uw bericht</div>
           <div id="errormessage"></div>
+          <div class="well well-lg">
           <form action="" method="post" role="form" class="contactForm">
             <div class="form-group">
               <input type="text" name="name" class="form-control" id="name" placeholder="Naam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
@@ -95,9 +110,12 @@
             </div>
             <div class="text-center"><button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Verstuur bericht</button></div>
           </form>
+  </div>
         </div>
       </div>
       <!--/.row-->
+
+
     </div>
     <!--/.container-->
   </section>
