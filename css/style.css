@@ -83,13 +83,14 @@ a:hover {
   list-style: none;
   background-color: #1BBD36;
   border-radius: 0px;
-  padding:3px 10px;
+ 
 }
 
 .breadcrumb li {
    text-transform:uppercase;
    margin-top:125px;
    font-weight:600;
+    padding-top: 50px
 }
 
 /*===========================
