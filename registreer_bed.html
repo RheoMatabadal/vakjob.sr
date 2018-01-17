@@ -38,15 +38,13 @@
             </div>
           </div>
 
-          <bs3-
-
           <div class="navbar-collapse collapse">
             <div class="menu">
               <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation"><a href="index.html">Home</a></li>
                 <li role="presentation"><a href="vacatures.html">Vacatures</a></li>
-                <li role="presentation"><a href="contact.html" class="active">Contact</a></li>
-                <li role= "presentation"><a href="registreer.html">Registreren</a></li>
+                <li role="presentation"><a href="contact.html" >Contact</a></li>
+                <li role= "presentation"><a href="registreer.html" class="active">Registreren</a></li>
               </ul>
               <form class="form-inline" action="/action_page.php">
   <div class="form-group">
@@ -75,41 +73,48 @@
       </div>
     </div>
   </div>
-
-  <div class="map">
-    <div id="google-map" data-latitude="5.809915" data-longitude="-55.214434"></div>
-  </div>
-
   <section id="contact-page">
     <div class="container">
       <div class="center">
 
-         <h2>Neem contact met ons op</h2>
+       <h2>Maak nu een account aan</h2>
        
       </div>
       <div class="row contact-wrap">
         <div class="status alert alert-success" style="display: none"></div>
         <div class="col-md-6 col-md-offset-3">
-          <div id="sendmessage">Bedankt voor uw bericht</div>
+          <div id="sendmessage">ingelogd</div>
           <div id="errormessage"></div>
           <div class="well well-lg">
           <form action="" method="post" role="form" class="contactForm">
             <div class="form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Naam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
+              <input type="text" name="gebruikersnaam" class="form-control" id="gebruikersnaam" placeholder="gebruikersnaam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
+              <div class="validation"></div>
+            </div>
+            <div class="form-group"> 
+              <input type="email" class="form-control" id="email" name="email" placeholder="voer email address in" data-rule="email" data-msg="voer een geldig email adres in">
+            </div>
+            
+            <!-- date picker -->
+            <div class="form-group">
+              <input type="text" class="form-control" name="bedrijfsnaam" id="bedrijfsnaam" placeholder="bedrijfsnaam" data-msg="voer een geldige bedrijfsnaam in" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Email" data-rule="email" data-msg="voer een geldig email adress in" />
+              <input type="text" class="form-control" name="adres" id="adres" placeholder="adres" data-msg="voer een geldig adres in" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="subject" id="subject" placeholder="Onderwerp" data-rule="minlen:4" data-msg="voer minimaal 8 karakters in" />
+              <input type="password" class="form-control" name="wachtwoord" id="wachtwoord" placeholder="wachtwoord" data-rule="minlen:8" data-msg="voer minimaal 8 karakters in" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
-              <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Uw bericht"></textarea>
+              <input type="password" class="form-control"  id="wachtwoordConfirmm" placeholder="wachtwoord" data-match="#wachtwoord" data-match-error="wachtwoorden komen niet overeen" />
               <div class="validation"></div>
             </div>
+            <div class="form-group">
+              <input type="image" name="foto" value="foto" placeholder="upload foto">
+            
             <div class="text-center"><button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Verstuur bericht</button></div>
           </form>
   </div>
@@ -170,6 +175,8 @@
   </script>
   <script src="js/functions.js"></script>
   <script src="contactform/contactform.js"></script>
+
+ 
 
 </body>
 
