@@ -113,6 +113,10 @@
               <div class="validation"></div>
             </div>
             
+            <div class="form-group">
+              <p> Geboortedatum: <input type="" id="datepicker"> </p>
+            </div>
+
             <div class="text-center"><button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Verstuur bericht</button></div>
           </form>
   </div>
@@ -173,7 +177,11 @@
   </script>
   <script src="js/functions.js"></script>
   <script src="contactform/contactform.js"></script>
-
+  <script > 
+    $(function(){
+      $("#datepicker").datepicker();
+    });
+  </script>
   
 
 </body>
