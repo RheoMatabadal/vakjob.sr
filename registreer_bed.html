@@ -91,27 +91,17 @@
               <input type="text" name="gebruikersnaam" class="form-control" id="gebruikersnaam" placeholder="gebruikersnaam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
               <div class="validation"></div>
             </div>
-            <!-- date picker -->
-            <div class="container">
-  <div class="row">
-   yyyy, dd/mm/yyyy, ddmmyyyyy
-  </div>
-  <br />
-    <div class="row">
-        <div class='col-sm-3'>
-            <div class="form-group">
-                <div class='input-group date' id='datetimepicker1'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
+            <div class="form-group"> 
+              <input type="email" class="form-control" id="email" name="email" placeholder="voer email address in" data-rule="email" data-msg="voer een geldig email adres in">
             </div>
-        </div>
-    </div>
-</div>
+            
             <!-- date picker -->
             <div class="form-group">
-              <input type="text" class="form-control" name="school" id="school" placeholder="school" data-msg="voer een geldige school" />
+              <input type="text" class="form-control" name="bedrijfsnaam" id="bedrijfsnaam" placeholder="bedrijfsnaam" data-msg="voer een geldige bedrijfsnaam in" />
+              <div class="validation"></div>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="adres" id="adres" placeholder="adres" data-msg="voer een geldig adres in" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
@@ -122,6 +112,8 @@
               <input type="password" class="form-control"  id="wachtwoordConfirmm" placeholder="wachtwoord" data-match="#wachtwoord" data-match-error="wachtwoorden komen niet overeen" />
               <div class="validation"></div>
             </div>
+            <div class="form-group">
+              <input type="image" name="foto" value="foto" placeholder="upload foto">
             
             <div class="text-center"><button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Verstuur bericht</button></div>
           </form>
@@ -184,52 +176,7 @@
   <script src="js/functions.js"></script>
   <script src="contactform/contactform.js"></script>
 
-  <script> $(function () {
-   var bindDatePicker = function() {
-    $(".date").datetimepicker({
-        format:'YYYY-MM-DD',
-      icons: {
-        time: "fa fa-clock-o",
-        date: "fa fa-calendar",
-        up: "fa fa-arrow-up",
-        down: "fa fa-arrow-down"
-      }
-    }).find('input:first').on("blur",function () {
-      // check if the date is correct. We can accept dd-mm-yyyy and yyyy-mm-dd.
-      // update the format if it's yyyy-mm-dd
-      var date = parseDate($(this).val());
-
-      if (! isValidDate(date)) {
-        //create date based on momentjs (we have that)
-        date = moment().format('YYYY-MM-DD');
-      }
-
-      $(this).val(date);
-    });
-  }
-   
-   var isValidDate = function(value, format) {
-    format = format || false;
-    // lets parse the date to the best of our knowledge
-    if (format) {
-      value = parseDate(value);
-    }
-
-    var timestamp = Date.parse(value);
-
-    return isNaN(timestamp) == false;
-   }
-   
-   var parseDate = function(value) {
-    var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
-    if (m)
-      value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-' + ("00" + m[1]).slice(-2);
-
-    return value;
-   }
-   
-   bindDatePicker();
- }); </script>
+ 
 
 </body>
 
