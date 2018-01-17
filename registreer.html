@@ -77,20 +77,39 @@
     <div class="container">
       <div class="center">
 
-        <h2>Neem contact met ons op</h2>
+       <h2>Neem contact met ons op</h2>
        
       </div>
       <div class="row contact-wrap">
         <div class="status alert alert-success" style="display: none"></div>
         <div class="col-md-6 col-md-offset-3">
-          <div id="sendmessage">Bedankt voor uw bericht</div>
+          <div id="sendmessage">ingelogd</div>
           <div id="errormessage"></div>
           <div class="well well-lg">
           <form action="" method="post" role="form" class="contactForm">
             <div class="form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Naam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
+              <input type="text" name="gebruikersnaam" class="form-control" id="gebruikersnaam" placeholder="gebruikersnaam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
               <div class="validation"></div>
             </div>
+            <!-- date picker -->
+            <div class="container">
+  <div class="row">
+   yyyy, dd/mm/yyyy, ddmmyyyyy
+  </div>
+  <br />
+    <div class="row">
+        <div class='col-sm-3'>
+            <div class="form-group">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- date picker -->
             <div class="form-group">
               <input type="email" class="form-control" name="email" id="email" placeholder="Email" data-rule="email" data-msg="voer een geldig email adress in" />
               <div class="validation"></div>
@@ -163,6 +182,53 @@
   </script>
   <script src="js/functions.js"></script>
   <script src="contactform/contactform.js"></script>
+
+  <script> $(function () {
+   var bindDatePicker = function() {
+    $(".date").datetimepicker({
+        format:'YYYY-MM-DD',
+      icons: {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-arrow-up",
+        down: "fa fa-arrow-down"
+      }
+    }).find('input:first').on("blur",function () {
+      // check if the date is correct. We can accept dd-mm-yyyy and yyyy-mm-dd.
+      // update the format if it's yyyy-mm-dd
+      var date = parseDate($(this).val());
+
+      if (! isValidDate(date)) {
+        //create date based on momentjs (we have that)
+        date = moment().format('YYYY-MM-DD');
+      }
+
+      $(this).val(date);
+    });
+  }
+   
+   var isValidDate = function(value, format) {
+    format = format || false;
+    // lets parse the date to the best of our knowledge
+    if (format) {
+      value = parseDate(value);
+    }
+
+    var timestamp = Date.parse(value);
+
+    return isNaN(timestamp) == false;
+   }
+   
+   var parseDate = function(value) {
+    var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
+    if (m)
+      value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-' + ("00" + m[1]).slice(-2);
+
+    return value;
+   }
+   
+   bindDatePicker();
+ }); </script>
 
 </body>
 
