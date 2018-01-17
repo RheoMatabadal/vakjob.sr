@@ -77,7 +77,7 @@
     <div class="container">
       <div class="center">
 
-       <h2>Neem contact met ons op</h2>
+       <h2>Maak nu een account aan</h2>
        
       </div>
       <div class="row contact-wrap">
@@ -111,17 +111,18 @@
 </div>
             <!-- date picker -->
             <div class="form-group">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Email" data-rule="email" data-msg="voer een geldig email adress in" />
+              <input type="text" class="form-control" name="school" id="school" placeholder="school" data-msg="voer een geldige school" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="subject" id="subject" placeholder="Onderwerp" data-rule="minlen:4" data-msg="voer minimaal 8 karakters in" />
+              <input type="password" class="form-control" name="wachtwoord" id="wachtwoord" placeholder="wachtwoord" data-rule="minlen:8" data-msg="voer minimaal 8 karakters in" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
-              <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Uw bericht"></textarea>
+              <input type="password" class="form-control"  id="wachtwoordConfirmm" placeholder="wachtwoord" data-match="#wachtwoord" data-match-error="wachtwoorden komen niet overeen" />
               <div class="validation"></div>
             </div>
+            
             <div class="text-center"><button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Verstuur bericht</button></div>
           </form>
   </div>
