@@ -13,12 +13,8 @@
   <link rel="stylesheet" href="css/animate.css">
   <link href="css/prettyPhoto.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet" />
-  <!-- =======================================================
-    Theme Name: Company
-    Theme URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
-    Author: BootstrapMade
-    Author URL: https://bootstrapmade.com
-  ======================================================= -->
+    
+  
 </head>
 
 <body>
@@ -114,7 +110,13 @@
             </div>
             
             <div class="form-group">
-              <p> Geboortedatum: <input type="" id="datepicker"> </p>
+              <div class="input-group">
+       <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
+       <div class="input-group-addon">
+        <i class="fa fa-calendar">
+        </i>
+       </div>
+      </div>
             </div>
 
             <div class="text-center"><button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Verstuur bericht</button></div>
@@ -177,12 +179,25 @@
   </script>
   <script src="js/functions.js"></script>
   <script src="contactform/contactform.js"></script>
-  <script > 
-    $(function(){
-      $("#datepicker").datepicker();
-    });
-  </script>
-  
+<!-- date picker js -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+<script>
+    $(document).ready(function(){
+        var date_input=$('input[name="date"]'); //our date input has the name "date"
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+            format: 'mm/dd/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+    })
+</script>
 
 </body>
 
