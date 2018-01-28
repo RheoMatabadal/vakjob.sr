@@ -159,7 +159,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li>
-          <a href="#">
+          <a href="index.php">
             <i class="fa fa-home"></i> <span>Start</span>
             
           </a>
@@ -167,37 +167,37 @@
       
         
          <li>
-          <a href="#">
+          <a href="gebruikers.php">
             <i class="fa fa-user-circle"></i> <span>Gebruikers</span>
             
           </a>
         </li> 
         <li>
-          <a href="#">
+          <a href="bedrijven.php">
             <i class="fa fa-building"></i> <span>Bedrijven</span>
             
           </a>
         </li> 
         <li>
-          <a href="#">
+          <a href="studenten.php">
             <i class="fa fa-graduation-cap "></i> <span>Studenten</span>
             
           </a>
         </li> 
          <li>
-          <a href="#">
+          <a href="vacatures.php">
             <i class="fa fa-list "></i> <span>Vacatures</span>
             
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="berichten.php">
             <i class="fa fa-comment  "></i> <span>Berichten</span>
             
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="updates.php">
             <i class="fa fa-refresh  "></i> <span>Pagina updates</span>
             
           </a>
