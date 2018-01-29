@@ -229,7 +229,7 @@
             <div class="icon">
               <i class="ion ion-university"></i>
             </div>
-            <a href="#" class="small-box-footer">Bekijk <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="studenten.php" class="small-box-footer">Bekijk <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -244,7 +244,7 @@
             <div class="icon">
               <i class="ion ion-briefcase"></i>
             </div>
-            <a href="#" class="small-box-footer">Bekijk <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="bedrijven.php" class="small-box-footer">Bekijk <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -259,7 +259,7 @@
             <div class="icon">
               <i class="ion ion-ios-list-outline"></i>
             </div>
-            <a href="#" class="small-box-footer">Bekijk <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="vacatures.php" class="small-box-footer">Bekijk <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -274,7 +274,7 @@
             <div class="icon">
               <i class="ion ion-chatbox"></i>
             </div>
-            <a href="#" class="small-box-footer">Bekijk <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="berichten.php" class="small-box-footer">Bekijk <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->

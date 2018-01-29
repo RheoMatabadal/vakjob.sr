@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Vakjob.sr | Dashboard</title>
+  <title>Vakjob.sr | Gebruikers</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -27,6 +27,8 @@
   <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -229,8 +231,101 @@
             
             <!-- /.box-header -->
               
+ <div class="container">
+  <h1>Gebruikers:</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Gebruikersnaam</th>
+      <th scope="col">Functie</th>
+      <th scope="col">Acties</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mark</td>
+      <td><select>
+           <option value="admin">Admin</option>
+           <option value="contentBeheerder">ContentBeheer</option>
  
-
+          </select>
+      </td>
+      <td><div class="btn-group">
+  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Gebruiker</a>
+  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="#"><i class="fa fa-pencil fa-fw"></i> Bewerken</a></li>
+    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
+  </ul>
+</div></td>
+      
+    </tr>
+    <tr>
+      <td>Bankoe</td>
+      <td><select>
+           <option value="admin">Admin</option>
+           <option value="contentBeheerder">ContentBeheer</option>
+ 
+          </select></td>
+      <td><div class="btn-group ">
+  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Gebruiker</a>
+  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="#"><i class="fa fa-pencil fa-fw"></i> Bewerken</a></li>
+    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
+  </ul>
+</div></td>
+      
+    <tr>
+      <td>James</td>
+      <td><select>
+           <option value="admin">Admin</option>
+           <option value="contentBeheerder">ContentBeheer</option>
+ 
+          </select></td>
+      <td><div class="btn-group ">
+  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Gebruiker</a>
+  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="#"><i class="fa fa-pencil fa-fw"></i> Bewerken</a></li>
+    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
+  </ul>
+</div>  </td>
+      
+    </tr>
+  </tbody>
+</table>
+</div>
+<!-- gebruiker toevoegen quick onderin -->
+<div class="container">
+  <h2>Voeg Gebruiker toe:</h2>
+  
+  <form>
+    <div class="form-group input-group-sm">
+      <label for="usr">Naam:</label>
+      <input type="text" class="form-control" id="gebruikersnaam">
+    </div>
+    <div class="form-group input-group-sm">
+      <label for="pwd">Wachtwoord:</label>
+      <input type="password" class="form-control" id="wachtwoord">
+    </div>
+    <div class="form-group input-group-sm">
+  <label for="sel1">Functie:</label>
+  <select class="form-control" id="sel1">
+    <option>Admin</option>
+    <option> Content Beheer</option>
+ 
+  </select>
+</div>
+<button type="submit" class="btn btn-default">Voeg toe</button>
+  </form>
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->
@@ -464,5 +559,29 @@
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.min.js">  </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<script>
+ function verwijderen() {
+   bootbox.confirm({
+    message: "weet u zeker dat u deze gebruiker wilt verwijderen?",
+    buttons: {
+        confirm: {
+            label: 'Ja',
+            className: 'btn-success'
+        },
+        cancel: {
+            label: 'Nee',
+            className: 'btn-danger'
+        }
+    },
+    callback: function (result) {
+        console.log('This was logged in the callback: ' + result);
+    }
+});
+ }
+    </script>
 </body>
 </html>
