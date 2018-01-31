@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Vakjob.sr | Dashboard</title>
+  <title>Vakjob.sr | Vacatures</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -27,6 +27,8 @@
   <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -229,8 +231,90 @@
             
             <!-- /.box-header -->
               
- 
-
+ <div class="container">
+  <h1>Vacatures:</h1>
+  <div class="container">
+    
+    <div class="row">
+        <div class="col-md-4 col-md-offset-7">
+            <form action="" class="search-form">
+                <div class="form-group has-feedback">
+                <label for="search" class="sr-only">Search</label>
+                <input type="text" class="form-control" name="search" id="search" placeholder="zoek">
+                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </form>
+        </div>
+    </div>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Titel</th>
+      <th scope="col">Bedrijf</th>
+      <th scope="col">Datum</th>
+      <th scope="col">Acties</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tuinman</td>
+      <td>prako NV</td>
+      <td>12-12-2012 </td>
+      <td><div class="btn-group">
+  <a class="btn btn-primary" href="#"><i class="fa fa-list fa-fw"></i> Vacature</a>
+  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="#"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
+    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
+  </ul>
+</div></td>
+      
+    </tr>
+    <tr>
+      <td>Brand assistent</td>
+      <td>BeerBOS BV</td>
+      <td>12-03-2013</td>
+      <td><div class="btn-group ">
+  <a class="btn btn-primary" href="#"><i class="fa fa-list fa-fw"></i> Vacature</a>
+  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="#"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
+    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
+  </ul>
+</div></td>
+      
+    <tr>
+      <td>Vlinder Verzorger</td>
+      <td>De Ananas group ltd.</td>
+      <td>12-05-2011</td>
+      <td><div class="btn-group ">
+  <a class="btn btn-primary" href="#"><i class="fa fa-list fa-fw"></i> Vacature</a>
+  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="#"><i class="fa fa-eye fa-fw"></i> Bekijken</a></li>
+    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
+  </ul>
+</div>  </td>
+      
+    </tr>
+  </tbody>
+</table>
+</div>
+<!-- pagination -->
+<nav aria-label="...">
+  <ul class="pager">
+    <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span>Vorige</a></li>
+    <li class="next"><a href="#">Volgende <span aria-hidden="true">&rarr;</span></a></li>
+  </ul>
+</nav>
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->
@@ -464,5 +548,29 @@
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.min.js">  </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<script>
+ function verwijderen() {
+   bootbox.confirm({
+    message: "weet u zeker dat u deze vacature wilt verwijderen?",
+    buttons: {
+        confirm: {
+            label: 'Ja',
+            className: 'btn-success'
+        },
+        cancel: {
+            label: 'Nee',
+            className: 'btn-danger'
+        }
+    },
+    callback: function (result) {
+        console.log('This was logged in the callback: ' + result);
+    }
+});
+ }
+    </script>
 </body>
 </html>
