@@ -232,7 +232,7 @@
             <!-- /.box-header -->
               
  <div class="container">
-  <h1>Bedrijven:</h1>
+  <h1>Studenten:</h1>
   <div class="container">
     
     <div class="row">
