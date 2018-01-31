@@ -264,7 +264,7 @@
     <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
   </a>
   <ul class="dropdown-menu">
-    <li><a href="#"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
+    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
     <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
   </ul>
 </div></td>
@@ -278,7 +278,7 @@
     <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
   </a>
   <ul class="dropdown-menu">
-    <li><a href="#"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
+    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
     <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
   </ul>
 </div></td>
@@ -291,7 +291,7 @@
     <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
   </a>
   <ul class="dropdown-menu">
-    <li><a href="#"><i class="fa fa-eye fa-fw"></i> Bekijken</a></li>
+    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa-eye fa-fw"></i> Bekijken</a></li>
     <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
   </ul>
 </div>  </td>
@@ -502,7 +502,47 @@
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form class="horizontal">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Bedrijfssnaam</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+            <div class="col-md-8">
+  <form>
+    <div class="form-group input-group-sm">
+      <label for="usr">Gebruikersnaam:</label>
+      <input type="text" class="form-control" id="gebruikersnaam" readonly>
+    </div>
+    <div class="form-group input-group-sm">
+      <label for="usr">Email:</label>
+      <input type="email" class="form-control" id="email" readonly>
+    </div>
+    <div class="form-group input-group-sm">
+      <label for="usr">Adres:</label>
+      <input type="text" class="form-control" id="adres" readonly>
+    </div>
+    <div class="form-group">
+      <img class="d-flex mr-3" alt="Generic placeholder image">
+      
+    </div>
+    
+<button type="submit" class="btn btn-default">Sluiten</button>
+  </form>
+</div>
 
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+    </form class = "horizontal">
+      </div>
+    </div>
+  </div>
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
