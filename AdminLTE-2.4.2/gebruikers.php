@@ -149,6 +149,7 @@
       </div>
     </nav>
   </header>
+  
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -230,9 +231,23 @@
             <!-- /.chat -->
             
             <!-- /.box-header -->
-              
+       
  <div class="container">
   <h1>Gebruikers:</h1>
+<div class="container">
+    
+    <div class="row">
+        <div class="col-md-4 col-md-offset-7">
+            <form action="" class="search-form">
+                <div class="form-group has-feedback">
+                <label for="search" class="sr-only">Search</label>
+                <input type="text" class="form-control" name="search" id="search" placeholder="zoek">
+                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </form>
+        </div>
+    </div>
+</div>
 <table class="table">
   <thead>
     <tr>
@@ -303,10 +318,17 @@
   </tbody>
 </table>
 </div>
+<!-- pagination -->
+<nav aria-label="...">
+  <ul class="pager">
+    <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span>Vorige</a></li>
+    <li class="next"><a href="#">Volgende <span aria-hidden="true">&rarr;</span></a></li>
+  </ul>
+</nav>
 <!-- gebruiker toevoegen quick onderin -->
 <div class="container">
   <h2>Voeg Gebruiker toe:</h2>
-  
+  <div class="col-md-8">
   <form>
     <div class="form-group input-group-sm">
       <label for="usr">Naam:</label>
@@ -326,6 +348,9 @@
 </div>
 <button type="submit" class="btn btn-default">Voeg toe</button>
   </form>
+</div>
+</div>  
+
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->
@@ -566,7 +591,7 @@
 <script>
  function verwijderen() {
    bootbox.confirm({
-    message: "weet u zeker dat u deze gebruiker wilt verwijderen?",
+    message: "weet u zeker dat u dit bedrijf wilt verwijderen?",
     buttons: {
         confirm: {
             label: 'Ja',
