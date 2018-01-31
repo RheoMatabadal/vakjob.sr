@@ -217,7 +217,69 @@
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
-    
+      <div class="row">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3>150</h3>
+
+              <p>Studenten</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-university"></i>
+            </div>
+            <a href="studenten.php" class="small-box-footer">Bekijk <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3>13</h3>
+
+              <p>Bedrijven</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-briefcase"></i>
+            </div>
+            <a href="bedrijven.php" class="small-box-footer">Bekijk <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3>44</h3>
+
+              <p>Vacatures</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-ios-list-outline"></i>
+            </div>
+            <a href="vacatures.php" class="small-box-footer">Bekijk <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3>6</h3>
+
+              <p>Berichten</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-chatbox"></i>
+            </div>
+            <a href="berichten.php" class="small-box-footer">Bekijk <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+      <!-- /.row -->
       <!-- Main row -->
      
           <!-- /.nav-tabs-custom -->
