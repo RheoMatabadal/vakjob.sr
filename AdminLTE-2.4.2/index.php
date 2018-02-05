@@ -27,7 +27,6 @@
       <input type="password" id="inputWachtwoord" class="form-control" placeholder="Wachtwoord" required>
    
       <button class="btn btn-lg btn-success btn-block" type="submit">Inloggen</button>
-      
-    </form>
+          </form>
   </body>
 </html>

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VAKJOB.SR</title>
+  <title>VAKJOB.SR| bedrijf login</title>
 
   <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +51,7 @@
             <li><a href="registreer_stu.html">Registreer student</a></li>
           </ul>
         </li>
-                      <li class="dropdown">
+        <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Inloggen <b class="caret"></b></a>
                <ul class="dropdown-menu">
             <li><a href="login_bed.php">Bedrijf login</a></li>
@@ -59,7 +59,7 @@
           </ul>
         </li>
               </ul>
-
+            
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@
     <div class="container">
       <div class="center">
 
-       <h2>Maak nu een account aan</h2>
+       <h2>Login</h2>
        
       </div>
       <div class="row contact-wrap">
@@ -88,39 +88,18 @@
           <div id="sendmessage">ingelogd</div>
           <div id="errormessage"></div>
           <div class="well well-lg">
-          <form action="" method="post" role="form" class="contactForm">
-            <div class="form-group">
-              <input type="text" name="gebruikersnaam" class="form-control" id="gebruikersnaam" placeholder="gebruikersnaam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
-              <div class="validation"></div>
-            </div>
-            <div class="form-group"> 
-              <input type="email" class="form-control" id="email" name="email" placeholder="voer email address in" data-rule="email" data-msg="voer een geldig email adres in">
-            </div>
-            
-            <!-- date picker -->
-            <div class="form-group">
-              <input type="text" class="form-control" name="bedrijfsnaam" id="bedrijfsnaam" placeholder="bedrijfsnaam" data-msg="voer een geldige bedrijfsnaam in" />
-              <div class="validation"></div>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" name="adres" id="adres" placeholder="adres" data-msg="voer een geldig adres in" />
-              <div class="validation"></div>
-            </div>
-            <div class="form-group">
-              <input type="password" class="form-control" name="wachtwoord" id="wachtwoord" placeholder="wachtwoord" data-rule="minlen:8" data-msg="voer minimaal 8 karakters in" />
-              <div class="validation"></div>
-            </div>
-            <div class="form-group">
-              <input type="password" class="form-control"  id="wachtwoordConfirmm" placeholder="wachtwoord" data-match="#wachtwoord" data-match-error="wachtwoorden komen niet overeen" />
-              <div class="validation"></div>
-            </div>
-            <div class="form-group">
-              <label>upload foto</label>
-              input
-                <input type="file" name="foto" accept="image/*">
-          </div>
-            <div class="text-center"><button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Verstuur bericht</button></div>
-          </form>
+            <form class="form-inline" action="/action_page.php">
+  <div class="form-group">
+    <label for="email" class="text-success">Email adress:</label>
+    <input type="email" class="form-control" id="email">
+  </div>
+  <div class="form-group">
+    <label for="pwd" class="text-success">Wachtwoord:</label>
+    <input type="password" class="form-control" id="pwd">
+  </div>
+ 
+  <button type="submit" class="btn btn-primary ">Inloggen</button>
+</form>
   </div>
         </div>
       </div>
