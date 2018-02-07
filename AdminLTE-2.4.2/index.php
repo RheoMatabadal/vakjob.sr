@@ -1,4 +1,6 @@
-
+<?php 
+session_start();
+ ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -18,15 +20,15 @@
   </head>
 
   <body class="text-center">
-    <form class="form-signin">
+    <form class="form-signin" action="includes/login.inc.php" method="POST">
       <h1> VAKJOB.SR|CMS</h1>
 
       <label for="inputGberuikersnaam" class="sr-only">Gebruikers naam</label>
-      <input type="text" id="inputGebruikersnaam" class="form-control" placeholder="gebruikersnaam" required autofocus>
+      <input type="text" id="inputGebruikersnaam" name="gebruikersnaam" class="form-control" placeholder="gebruikersnaam" required autofocus>
       <label for="inputWachtwoord" class="sr-only">Wachtwoord</label>
-      <input type="password" id="inputWachtwoord" class="form-control" placeholder="Wachtwoord" required>
+      <input type="password" name="wachtwoord" id="inputWachtwoord" class="form-control" placeholder="Wachtwoord" required>
    
-      <button class="btn btn-lg btn-success btn-block" type="submit">Inloggen</button>
+      <button class="btn btn-lg btn-success btn-block" name="submit" type="submit">Inloggen</button>
           </form>
   </body>
 </html>
