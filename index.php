@@ -1,3 +1,21 @@
+<?php
+  require_once 'backend/database.php';
+
+  // Report submit
+  if(isset($_POST['submit'])) {
+    require 'backend/database.php'; // Require database
+
+    // Get POST request vars
+    $email  = $_POST['email'];
+    $description = $_POST['description'];
+
+    $sql = "INSERT INTO messages (email, bericht) VALUES ('$email', '$description')";
+    if($conn->query($sql)) {
+      // This is only text. Change this later!!
+      echo "Report verzonden!";
+      header("Location: index.php");
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -168,7 +186,7 @@
       <div class="text-center">
         <h2>Het Laatste nieuws</h2>
       </div>
-      <div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+      <!-- <div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
         <img src="images/4.jpg" class="img-responsive" />
         <h3>Template built with Twitter Bootstrap</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum erat libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque libero,
@@ -182,15 +200,23 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum erat libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque libero,
           pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
         </p>
-      </div>
+      </div> -->
 
-      <div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">
-        <img src="images/4.jpg" class="img-responsive" />
-        <h3>Template built with Twitter Bootstrap</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum erat libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque libero,
-          pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-        </p>
-      </div>
+      <?php
+        $sql = "SELECT * FROM announcements";
+        $query = $conn->query($sql);
+        while($result = $query->fetch_assoc()) {
+          // print_r($result);
+          ?>
+          <div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">
+            <img src="images/4.jpg" class="img-responsive" />
+            <h3><?php echo $result['topic']; ?></h3>
+            <p><?php echo $result['description']; ?></p>
+          </div>
+          <?php
+        }
+
+      ?>
       <div class="col-xs-10 col-xs-offset-3">
           <ul class="pagination pagination-lg">
             <li><a href="#"><i class="fa fa-long-arrow-left"></i>Vorige pagina</a></li>
@@ -257,7 +283,7 @@
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-      	<form class="horizontal">
+      	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="horizontal">
         	<div class="modal-header">
           	<button type="button" class="close" data-dismiss="modal">&times;</button>
           	<h4 class="modal-title">Meld uw probleem</h4>
@@ -265,16 +291,16 @@
        		<div class="modal-body">
          		<div class="form-group">
          			<div class="col-lg-14">
-         				<input type="email" class="form-control" id="email" placeholder="email@adres.com">
+         				<input type="email" class="form-control" name="email" id="email" placeholder="email@adres.com">
          		</div>
          		<div class="form-group">
          			<div class="col-lg-14">
-         				<textarea class="form-control" placeholder="voer uw bericht hier in"></textarea>
+         				<textarea class="form-control" name="description" placeholder="voer uw bericht hier in"></textarea>
          		</div>
 
         	</div>
         	<div class="modal-footer">
-        		<button type="button" class="btn btn-success">Versturen</button>
+        		<button type="submit" name="report_submit" class="btn btn-success">Versturen</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
         	</div>
     </form class = "horizontal">
