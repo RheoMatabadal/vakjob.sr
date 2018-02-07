@@ -136,12 +136,14 @@ session_start();
           <!-- User Account: style can be found in dropdown.less -->
          
               <!-- Menu Footer-->
+             <form action="includes/logout.inc.php" method="POST">
               <li class="user-footer">
                
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">uitloggen</a>
+                  <button type="submit" name="submit" class="btn btn-default btn-flat">uitloggen</button>
                 </div>
               </li>
+            </form>
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
