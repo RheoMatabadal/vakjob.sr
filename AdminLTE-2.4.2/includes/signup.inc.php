@@ -26,6 +26,7 @@ if (empty($gebruikersnaam) || empty($wachtwoord)) {
 		if ($resultCheck > 0) {
 			header("Location: ../gebruikers.php?toevoegenveld=usertaken");
 	    exit();
+
 		}else{
 			//hashing password
 			$hashedPwd = password_hash($wachtwoord, PASSWORD_DEFAULT);

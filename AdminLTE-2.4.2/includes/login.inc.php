@@ -42,6 +42,7 @@ if (isset($_POST['submit'])) {
  	}
  }
 }
+//deze error hier wordt displayed in die browser url bar
  else{
  	header("Location: ../index.php?login=error3");
  	exit();
