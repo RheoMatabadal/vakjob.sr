@@ -1,6 +1,20 @@
 <?php 
 session_start();
- ?>
+
+require 'includes/database.php';
+
+/**
+ * Actions
+ */
+if(isset($_GET['submit_delete'])) {
+  $id = $_GET['admin_id'];
+  $sql = "DELETE FROM admins WHERE id = '$id'";
+  if($conn->query($sql)) {
+    header("Location: " . $_SERVER['PHP_SELF']);
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -263,63 +277,34 @@ session_start();
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Mark</td>
-      <td><select>
-           <option value="admin">Admin</option>
-           <option value="contentBeheerder">ContentBeheer</option>
- 
-          </select>
-      </td>
-      <td><div class="btn-group">
-  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Gebruiker</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil fa-fw"></i> Bewerken</a></li>
-    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
-  </ul>
-</div></td>
-      
-    </tr>
-    <tr>
-      <td>Bankoe</td>
-      <td><select>
-           <option value="admin">Admin</option>
-           <option value="contentBeheerder">ContentBeheer</option>
- 
-          </select></td>
-      <td><div class="btn-group ">
-  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Gebruiker</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil fa-fw"></i> Bewerken</a></li>
-    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
-  </ul>
-</div></td>
-      
-    <tr>
-      <td>James</td>
-      <td><select>
-           <option value="admin">Admin</option>
-           <option value="contentBeheerder">ContentBeheer</option>
- 
-          </select></td>
-      <td><div class="btn-group ">
-  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Gebruiker</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a a data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil fa-fw"></i> Bewerken</a></li>
-    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
-  </ul>
-</div>  </td>
-      
-    </tr>
+
+    <?php
+      require 'includes/database.php';
+
+      $sql = "SELECT * FROM admins";
+      $query = $conn->query($sql);
+      while($result = $query->fetch_assoc()) {
+        ?>
+        <tr>
+          <td><?php echo ucfirst($result['username']) ?></td>
+          <td><?php echo ($result['user_level'] == 1) ? "Admin" : "Content beheer" ?></td>
+          <td>
+            <div class="btn-group">
+              <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Gebruiker</a>
+              <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a data-toggle="modal" data-target="#myModal<?php echo $result['id']; ?>"><i class="fa fa-pencil fa-fw"></i> Bewerken</a></li>
+                <li><a href="javascript:verwijderen('<?php echo $result['id']; ?>')"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
+              </ul>
+            </div>
+          </td>
+          
+        </tr>
+        <?php
+      }
+    ?>
   </tbody>
 </table>
 </div>
@@ -551,46 +536,58 @@ session_start();
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <form class="horizontal">
+<?php
+  $sql = "SELECT * FROM admins";
+  $query = $conn->query($sql);
+  while($result = $query->fetch_assoc()) {
+    ?>
+      <!-- Modal -->
+      <div id="myModal<?php echo $result['id']; ?>" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Gebruikersnaam</h4>
+            <h4 class="modal-title">Gegevens:</h4>
           </div>
           <div class="modal-body">
-            <div class="form-group">
+          <div class="form-group">
             <div class="col-md-8">
-  <form>
-    <div class="form-group input-group-sm">
-      <label for="usr">Naam:</label>
-      <input type="text" class="form-control" id="gebruikersnaam">
-    </div>
-    <div class="form-group input-group-sm">
-      <label for="pwd">Wachtwoord:</label>
-      <input type="password" class="form-control" id="wachtwoord">
-    </div>
-    <div class="form-group input-group-sm">
-  <label for="sel1">Functie:</label>
-  <select class="form-control" id="sel1">
-    <option>Admin</option>
-    <option> Content Beheer</option>
- 
-  </select>
-</div>
-<button type="submit" class="btn btn-default">Opslaan</button>
-  </form>
-</div>
-
+              <form>
+                <div class="form-group input-group-sm">
+                  <label for="usr">Naam:</label>
+                  <input type="text" class="form-control" value="<?php echo $result['username']; ?>" id="gebruikersnaam">
+                </div>
+                <div class="form-group input-group-sm">
+                  <label for="pwd">Wachtwoord:</label>
+                  <input type="password" class="form-control" id="wachtwoord">
+                </div>
+                <div class="form-group input-group-sm">
+                <label for="sel1">Functie:</label>
+                <select class="form-control" value="<?php echo $result['user_level']; ?>" id="sel1">
+                  <option value="1">Admin</option>
+                  <option value="2"> Content Beheer</option>
+                </select>
+                </div>
+              <button type="submit" class="btn btn-default">Opslaan</button>
+            </form>
+          </div>
+          </div>
           </div>
           <div class="modal-footer">
-            
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
-    </form class = "horizontal">
+        </div>
+
       </div>
-    </div>
-  </div>  
+      </div>
+    <?php
+  }
+?>
+
+
+
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -633,7 +630,7 @@ session_start();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.min.js">  </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <script>
- function verwijderen() {
+ function verwijderen(admin_id) {
    bootbox.confirm({
     message: "weet u zeker dat u dit bedrijf wilt verwijderen?",
     buttons: {
@@ -648,6 +645,7 @@ session_start();
     },
     callback: function (result) {
         console.log('This was logged in the callback: ' + result);
+        window.location = "<?php echo $_SERVER['PHP_SELF'].'?submit_delete&admin_id='; ?>" + admin_id;
     }
 });
  }
