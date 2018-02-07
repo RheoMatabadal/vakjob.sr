@@ -1,5 +1,17 @@
 <?php 
-session_start();
+  session_start();
+  require 'includes/database.php';
+
+  /**
+ * Actions
+ */
+  if(isset($_GET['submit_delete'])) {
+    $id = $_GET['message_id'];
+    $sql = "DELETE FROM messages WHERE id = '$id'";
+    if($conn->query($sql)) {
+      header("Location: " . $_SERVER['PHP_SELF']);
+    }
+  }
  ?>
 <!DOCTYPE html>
 <html>
@@ -263,53 +275,34 @@ session_start();
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Iip@gmail.com</td>
-      <td>Lege sensor</td>
-      <td>12-12-2012 </td>
-      <td><div class="btn-group">
-  <a class="btn btn-primary" href="#"><i class="fa fa-envelope fa-fw"></i> Bericht</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
-    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
-  </ul>
-</div></td>
-      
-    </tr>
-    <tr>
-      <td>Bernard@hotmail.com</td>
-      <td>Dorp verloren</td>
-      <td>12-03-2013</td>
-      <td><div class="btn-group ">
-  <a class="btn btn-primary" href="#"><i class="fa fa-envelope fa-fw"></i> Bericht</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
-    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
-  </ul>
-</div></td>
-      
-    <tr>
-      <td>Jame@tmail.com</td>
-      <td>link werkt niet</td>
-      <td>12-05-2011</td>
-      <td><div class="btn-group ">
-  <a class="btn btn-primary" href="#"><i class="fa fa-envelope fa-fw"></i> Bericht</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa-eye fa-fw"></i> Bekijken</a></li>
-    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
-  </ul>
-</div>  </td>
-      
-    </tr>
+  <?php
+    require 'includes/database.php';
+
+    $sql = "SELECT * FROM messages";
+    $query = $conn->query($sql);
+    while($result = $query->fetch_assoc()) {
+      ?>
+        <tr>
+          <td><?php echo $result['email']; ?></td>
+          <td><?php echo $result['onderwerp']; ?></td>
+          <td>12-12-2012</td>
+          <td>
+            <div class="btn-group">
+            <a class="btn btn-primary" href="#"><i class="fa fa-envelope fa-fw"></i> Bericht</a>
+            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+              <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
+              <li><a href="javascript:verwijderen(<?php echo $result['id']; ?>)"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
+            </ul>
+          </div>
+        </td>
+        </tr>
+      <?php
+    }
+  ?>
+    
   </tbody>
 </table>
 </div>
@@ -597,7 +590,7 @@ session_start();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.min.js">  </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <script>
- function verwijderen() {
+ function verwijderen(message_id) {
    bootbox.confirm({
     message: "weet u zeker dat u dit bericht wilt verwijderen?",
     buttons: {
@@ -612,8 +605,9 @@ session_start();
     },
     callback: function (result) {
         console.log('This was logged in the callback: ' + result);
+        window.location = "<?php echo $_SERVER['PHP_SELF'].'?submit_delete&message_id='; ?>" + message_id;
     }
-});
+  });
  }
     </script>
 </body>
