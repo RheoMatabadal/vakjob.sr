@@ -1,3 +1,39 @@
+<?php
+  if(isset($_POST['submit'])) {
+    require 'backend/database.php'; // Require database
+
+    // Get POST request vars
+    $gebruikersnaam = $_POST['gebruikersnaam'];
+    $email  = $_POST['email'];
+    $school = $_POST['school'];
+    $adres  = $_POST['adres'];
+    $wachtwoord = $_POST['wachtwoord'];
+    $wachtwoordConfirm = $_POST['wachtwoordConfirm'];
+    $date = $_POST['date'];
+
+    $sql = "INSERT INTO students (gebruikersnaam, email, school, adres, wachtwoord) VALUES ('$gebruikersnaam', '$email', '$school', '$adres', '$wachtwoord')";
+    if($conn->query($sql)) {
+      echo "Student toegevoegd!";
+      header("Location: index.php");
+    }
+
+    /**
+     * Verify if password fields are equal
+     * Or else
+     * @return false
+     */
+    // if($wachtwoord != $wachtwoordConfirm) {
+    //   // Change this structure code for later cuz it will display only a text
+    //   echo "Password fields are not equal!";
+      
+    // } else {
+      
+    // }
+
+
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,10 +117,10 @@
       <div class="row contact-wrap">
         <div class="status alert alert-success" style="display: none"></div>
         <div class="col-md-6 col-md-offset-3">
-          <div id="sendmessage">ingelogd</div>
+          <div id="sendmessage">U bent ingelogd</div>
           <div id="errormessage"></div>
           <div class="well well-lg">
-          <form action="" method="post" role="form" class="contactForm">
+          <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" role="form"> <!-- class="contactForm" -->
             <div class="form-group">
               <input type="text" name="gebruikersnaam" class="form-control" id="gebruikersnaam" placeholder="gebruikersnaam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
               <div class="validation"></div>
@@ -107,7 +143,7 @@
               <div class="validation"></div>
             </div>
             <div class="form-group">
-              <input type="password" class="form-control"  id="wachtwoordConfirmm" placeholder="wachtwoord" data-match="#wachtwoord" data-match-error="wachtwoorden komen niet overeen" />
+              <input type="password" class="form-control" name="wachtwoordConfirm"  id="wachtwoordConfirm" placeholder="wachtwoord" data-match="#wachtwoord" data-match-error="wachtwoorden komen niet overeen" />
               <div class="validation"></div>
             </div>
             
@@ -121,7 +157,7 @@
       </div>
             </div>
 
-            <div class="text-center"><button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Verstuur bericht</button></div>
+            <div class="text-center"><button type="submit" name="submit" class="btn btn-primary btn-lg">Verstuur bericht</button></div>
           </form>
   </div>
         </div>
