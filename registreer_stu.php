@@ -30,21 +30,21 @@
 							<span class="icon-bar"></span>
 						</button>
             <div class="navbar-brand">
-              <a href="index.html"><h1><span>VAKJOB</span>.SR</h1></a>
+              <a href="index.php"><h1><span>VAKJOB</span>.SR</h1></a>
             </div>
           </div>
 
           <div class="navbar-collapse collapse">
             <div class="menu">
               <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation"><a href="index.html">Home</a></li>
-                <li role="presentation"><a href="vacatures.html">Vacatures</a></li>
-                <li role="presentation"><a href="contact.html" >Contact</a></li>
+                <li role="presentation"><a href="index.php">Home</a></li>
+                <li role="presentation"><a href="vacatures.php">Vacatures</a></li>
+                <li role="presentation"><a href="contact.php" >Contact</a></li>
                  <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Registreren <b class="caret"></b></a>
                <ul class="dropdown-menu">
-            <li><a href="registreer_bed.html">Registreer bedrijf</a></li>
-            <li><a href="registreer_stu.html">Registreer student</a></li>
+            <li><a href="registreer_bed.php">Registreer bedrijf</a></li>
+            <li><a href="registreer_stu.php">Registreer student</a></li>
           </ul>
         </li>
         <li class="dropdown">

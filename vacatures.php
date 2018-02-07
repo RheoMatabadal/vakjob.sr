@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+php<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,7 +12,9 @@
   <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="css/animate.css">
   <link href="css/prettyPhoto.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet"/>
+  <link href="css/sweetalert.css" rel ="stylesheet">
+
   <!-- =======================================================
     Theme Name: Company
     Theme URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
@@ -34,32 +36,32 @@
 							<span class="icon-bar"></span>
 						</button>
             <div class="navbar-brand">
-              <a href="index.html"><h1><span>VAKJOB</span>.SR</h1></a>
+              <a href="index.php"><h1><span>VAKJOB</span>.SR</h1></a>
             </div>
           </div>
 
           <div class="navbar-collapse collapse">
             <div class="menu">
               <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation"><a href="index.html">Home</a></li>
-                <li role="presentation"><a href="vacatures.html">Vacatures</a></li>
-                <li role="presentation"><a href="contact.html" >Contact</a></li>
-                 <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Registreren <b class="caret"></b></a>
+                <li role="presentation"><a href="index.php">Home</a></li>
+                <li role="presentation"><a href="vacatures.php" class="active">Vacatures</a></li>
+                <li role="presentation"><a href="contact.php">Contact</a></li>
+                  <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Registreren <b class="caret"></b></a>
                <ul class="dropdown-menu">
-            <li><a href="registreer_bed.html">Registreer bedrijf</a></li>
-            <li><a href="registreer_stu.html">Registreer student</a></li>
+            <li><a href="registreer_bed.php">Registreer bedrijf</a></li>
+            <li><a href="registreer_stu.php">Registreer student</a></li>
           </ul>
         </li>
-                      <li class="dropdown">
+               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Inloggen <b class="caret"></b></a>
                <ul class="dropdown-menu">
             <li><a href="login_bed.php">Bedrijf login</a></li>
             <li><a href="login_stu.php">Student login</a></li>
           </ul>
-        </li>
+        </li>  
               </ul>
-
+          
             </div>
           </div>
         </div>
@@ -71,72 +73,89 @@
     <div class="container">
       <div class="breadcrumb">
         <li><a href="index.html">Home</a></li>
-        <li>Contact</li>
+        <li>Vacatures</li>
       </div>
     </div>
   </div>
-  <section id="contact-page">
-    <div class="container">
-      <div class="center">
 
-       <h2>Maak nu een account aan</h2>
-       
-      </div>
-      <div class="row contact-wrap">
-        <div class="status alert alert-success" style="display: none"></div>
-        <div class="col-md-6 col-md-offset-3">
-          <div id="sendmessage">ingelogd</div>
-          <div id="errormessage"></div>
-          <div class="well well-lg">
-          <form action="" method="post" role="form" class="contactForm">
-            <div class="form-group">
-              <input type="text" name="gebruikersnaam" class="form-control" id="gebruikersnaam" placeholder="gebruikersnaam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
-              <div class="validation"></div>
-            </div>
-            <div class="form-group"> 
-              <input type="email" class="form-control" id="email" name="email" placeholder="voer email address in" data-rule="email" data-msg="voer een geldig email adres in">
-            </div>
-            
-            <!-- date picker -->
-            <div class="form-group">
-              <input type="text" class="form-control" name="bedrijfsnaam" id="bedrijfsnaam" placeholder="bedrijfsnaam" data-msg="voer een geldige bedrijfsnaam in" />
-              <div class="validation"></div>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" name="adres" id="adres" placeholder="adres" data-msg="voer een geldig adres in" />
-              <div class="validation"></div>
-            </div>
-            <div class="form-group">
-              <input type="password" class="form-control" name="wachtwoord" id="wachtwoord" placeholder="wachtwoord" data-rule="minlen:8" data-msg="voer minimaal 8 karakters in" />
-              <div class="validation"></div>
-            </div>
-            <div class="form-group">
-              <input type="password" class="form-control"  id="wachtwoordConfirmm" placeholder="wachtwoord" data-match="#wachtwoord" data-match-error="wachtwoorden komen niet overeen" />
-              <div class="validation"></div>
-            </div>
-            <div class="form-group">
-              <label>upload foto</label>
-              input
-                <input type="file" name="foto" accept="image/*">
-          </div>
-            <div class="text-center"><button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Verstuur bericht</button></div>
-          </form>
-  </div>
+  <section id="blog" class="container">
+    <div class="blog">
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+          <table class="table">
+            <thead class="thead-default">
+              <tr class="active">
+                 <th><h3>Keuken hulp</h3></th>
+
+                 <th><h4>  <a href="#"><i class="glyphicon glyphicon-trash" style="color: black; float: right;"></i></a>    <a href="javascript:edit()"><i class="glyphicon glyphicon-pencil"  style="color: black; float: right;"></i></a>  <a href="javascript:bekijken()"><i class="glyphicon glyphicon-eye-open" style="color: black; float: right;"></a></i>   </h4></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><h4 style="margin-left: -17px;"><i class="glyphicon glyphicon-map-marker" style="color: black;"></i> Hotel Krasnapolsky</h4><br>
+                    <p>Assisteren in de keuken en in de bar van</p><br>
+                    <p>6pm-3am</p><br>    
+                    <p>Maandag - Zaterdag</p><br>
+                    <a href="javascript:bekijken()" class="btn btn-primary" role="button" >Bekijken</a>
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+    </div>
+        
+          <!--/.blog-item-->
+
+         
+          <!--/.blog-item-->
+
+        <div class="col-xs-10 col-xs-offset-1">
+          <ul class="pagination pagination-lg">
+            <li><a href="#"><i class="fa fa-long-arrow-left"></i>Vorige pagina</a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">Volgende Pagina<i class="fa fa-long-arrow-right"></i></a></li>
+          </ul>
+          <!--/.pagination-->
+        </div>
+        <!--/.col-md-8-->
+          <!--/.
+
+          <div class="widget archieve">
+            <h3>Archieve</h3>
+            <div class="row">
+              <div class="col-sm-12">
+                <ul class="blog_archieve">
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> December 2015 <span class="pull-right">(97)</span></a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> November 2015 <span class="pull-right">(32)</span></a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> October 2015 <span class="pull-right">(19)</span></a></li>
+                  <li><a href="#"><i class="fa fa-angle-double-right"></i> September 2015 <span class="pull-right">(08)</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div><
+          .archieve-->
+
+         
+
+      </div>
+      </div>
+   
       <!--/.row-->
 
-
-    </div>
-    <!--/.container-->
   </section>
-  <!--/#contact-page-->
+  <!--/#blog-->
 
   <footer>
     <div class="footer">
       <div class="container">
         <div class="social-icon">
-          <div class="col-md-4">
+          <div class="col-md-5">
             <ul class="social-network">
               <li><a href="#" class="fb tool-tip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
               <li><a href="#" class="twitter tool-tip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
@@ -150,7 +169,7 @@
 
         <div class="col-md-4 col-md-offset-4">
           <div class="copyright">
-            &copy;VAKJOB.SR. Alle Rechten Voorbehouden.
+            &copy; VAKJOB.SR. Alle Rechten Voorbehouden.
             <div class="credits">
               <!--
                 All the links in the footer should remain intact.
@@ -198,17 +217,58 @@
   </div>  
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="js/jquery-2.1.1.min.js"></script>
+  <script src="js/jquery.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="js/bootstrap.min.js"></script>
   <script src="js/jquery.prettyPhoto.js"></script>
   <script src="js/jquery.isotope.min.js"></script>
   <script src="js/wow.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8HeI8o-c1NppZA-92oYlXakhDPYR7XMY">
-  </script>
   <script src="js/functions.js"></script>
-  <script src="contactform/contactform.js"></script>
+  <script src="js/sweetalert.js"></script>
+   <script src="js/sweetalert.min.js"></script>
 
- 
+  <script type="text/javascript">
+    
+    function bekijken(){
+      swal({
+  title: "Keuken hulp",
+  text: "Assisteren in de keuken. Kom en help in de keuken van Krasnapolsky",
+  showCancelButton: true,
+  cancelButtonText: "Terug",
+  confirmButtonText: "Solliciteer nu",
+  closeOnConfirm: false
+},
+function(){
+  location.href = 'http://google.com';
+});
+    } 
+
+    
+  </script>
+  <script type="text/javascript">
+    function edit(){
+      swal({
+  title: "An input!",
+  text: "Write something interesting:",
+  type: "input",
+  type: "input",
+  type: "select",
+  type: "select",
+  showCancelButton: true,
+  closeOnConfirm: false,
+  inputPlaceholder: "Titel van baan"
+  inputPlaceholder: "Beschrijving"
+  selectPlaceholder: "datum"
+}, function (inputValue) {
+  if (inputValue === false) return false;
+  if (inputValue === "") {
+    swal.showInputError("You need to write something!");
+    return false
+  }
+  swal("Nice!", "You wrote: " + inputValue, "success");
+})
+    }
+  </script>
 
 </body>
 

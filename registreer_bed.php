@@ -34,27 +34,24 @@
 							<span class="icon-bar"></span>
 						</button>
             <div class="navbar-brand">
-              <a href="index.html"><h1><span>VAKJOB</span>.SR</h1></a>
+              <a href="index.php"><h1><span>VAKJOB</span>.SR</h1></a>
             </div>
           </div>
-
-          <bs3-
 
           <div class="navbar-collapse collapse">
             <div class="menu">
               <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation"><a href="index.html">Home</a></li>
-                <li role="presentation"><a href="vacatures.html">Vacatures</a></li>
-                <li role="presentation"><a href="contact.html" class="active">Contact</a></li>
-
+                <li role="presentation"><a href="index.php">Home</a></li>
+                <li role="presentation"><a href="vacatures.php">Vacatures</a></li>
+                <li role="presentation"><a href="contact.php" >Contact</a></li>
                  <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Registreren <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Registreren <b class="caret"></b></a>
                <ul class="dropdown-menu">
-            <li><a href="registreer_bed.html">Registreer bedrijf</a></li>
-            <li><a href="registreer_stu.html">Registreer student</a></li>
+            <li><a href="registreer_bed.php">Registreer bedrijf</a></li>
+            <li><a href="registreer_stu.php">Registreer student</a></li>
           </ul>
         </li>
-        <li class="dropdown">
+                      <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Inloggen <b class="caret"></b></a>
                <ul class="dropdown-menu">
             <li><a href="login_bed.php">Bedrijf login</a></li>
@@ -62,7 +59,7 @@
           </ul>
         </li>
               </ul>
-             
+
             </div>
           </div>
         </div>
@@ -78,41 +75,50 @@
       </div>
     </div>
   </div>
-
-  <div class="map">
-    <div id="google-map" data-latitude="5.809915" data-longitude="-55.214434"></div>
-  </div>
-
   <section id="contact-page">
     <div class="container">
       <div class="center">
 
-         <h2>Neem contact met ons op</h2>
+       <h2>Maak nu een account aan</h2>
        
       </div>
       <div class="row contact-wrap">
         <div class="status alert alert-success" style="display: none"></div>
         <div class="col-md-6 col-md-offset-3">
-          <div id="sendmessage">Bedankt voor uw bericht</div>
+          <div id="sendmessage">ingelogd</div>
           <div id="errormessage"></div>
           <div class="well well-lg">
           <form action="" method="post" role="form" class="contactForm">
             <div class="form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Naam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
+              <input type="text" name="gebruikersnaam" class="form-control" id="gebruikersnaam" placeholder="gebruikersnaam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
+              <div class="validation"></div>
+            </div>
+            <div class="form-group"> 
+              <input type="email" class="form-control" id="email" name="email" placeholder="voer email address in" data-rule="email" data-msg="voer een geldig email adres in">
+            </div>
+            
+            <!-- date picker -->
+            <div class="form-group">
+              <input type="text" class="form-control" name="bedrijfsnaam" id="bedrijfsnaam" placeholder="bedrijfsnaam" data-msg="voer een geldige bedrijfsnaam in" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Email" data-rule="email" data-msg="voer een geldig email adress in" />
+              <input type="text" class="form-control" name="adres" id="adres" placeholder="adres" data-msg="voer een geldig adres in" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="subject" id="subject" placeholder="Onderwerp" data-rule="minlen:4" data-msg="voer minimaal 8 karakters in" />
+              <input type="password" class="form-control" name="wachtwoord" id="wachtwoord" placeholder="wachtwoord" data-rule="minlen:8" data-msg="voer minimaal 8 karakters in" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
-              <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Uw bericht"></textarea>
+              <input type="password" class="form-control"  id="wachtwoordConfirmm" placeholder="wachtwoord" data-match="#wachtwoord" data-match-error="wachtwoorden komen niet overeen" />
               <div class="validation"></div>
             </div>
+            <div class="form-group">
+              <label>upload foto</label>
+              input
+                <input type="file" name="foto" accept="image/*">
+          </div>
             <div class="text-center"><button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Verstuur bericht</button></div>
           </form>
   </div>
@@ -130,15 +136,14 @@
     <div class="footer">
       <div class="container">
         <div class="social-icon">
-          <div class="col-md-5">
-            
+          <div class="col-md-4">
             <ul class="social-network">
               <li><a href="#" class="fb tool-tip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
               <li><a href="#" class="twitter tool-tip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
               <li><a href="#" class="gplus tool-tip" title="Google Plus"><i class="fa fa-google-plus"></i></a></li>
               <li><a href="#" class="linkedin tool-tip" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
               <li><a href="#" class="ytube tool-tip" title="You Tube"><i class="fa fa-youtube-play"></i></a></li>
-              <li><a data-toggle="modal" data-target="#myModal" title="probleem"><i class="fa fa-exclamation-triangle" aria-hidden="false"></i></a></li>    
+              <li><a data-toggle="modal" data-target="#myModal" title="probleem"><i class="fa fa-exclamation-triangle" aria-hidden="false"></i></a></li>
             </ul>
           </div>
         </div>
@@ -163,7 +168,8 @@
       </div>
     </div>
   </footer>
-  <div class="modal fade" id="myModal" role="dialog">
+    
+     <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <form class="horizontal">
@@ -190,7 +196,6 @@
       </div>
     </div>
   </div>  
-
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="js/jquery-2.1.1.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -202,6 +207,8 @@
   </script>
   <script src="js/functions.js"></script>
   <script src="contactform/contactform.js"></script>
+
+ 
 
 </body>
 
