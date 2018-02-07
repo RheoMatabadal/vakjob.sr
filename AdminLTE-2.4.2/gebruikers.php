@@ -329,14 +329,14 @@
 <div class="container">
   <h2>Voeg Gebruiker toe:</h2>
   <div class="col-md-8">
-  <form>
+  <form action="includes/signup.inc.php" method="POST">
     <div class="form-group input-group-sm">
       <label for="usr">Naam:</label>
-      <input type="text" class="form-control" id="gebruikersnaam">
+      <input type="text" class="form-control" name="gebruikersnaam" id="gebruikersnaam">
     </div>
     <div class="form-group input-group-sm">
       <label for="pwd">Wachtwoord:</label>
-      <input type="password" class="form-control" id="wachtwoord">
+      <input type="password" class="form-control" name="wachtwoord" id="wachtwoord">
     </div>
     <div class="form-group input-group-sm">
   <label for="sel1">Functie:</label>
@@ -346,7 +346,7 @@
  
   </select>
 </div>
-<button type="submit" class="btn btn-default">Voeg toe</button>
+<button type="submit" name="submit" class="btn btn-default">Voeg toe</button>
   </form>
 </div>
 </div>  
