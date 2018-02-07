@@ -1,8 +1,8 @@
 <?php
     $dbServername = "localhost";
     $dbUsername = "root";
-    $dbPassword = "";
-    $dbName = "new_vakjob";
+    $dbPassword = "root";
+    $dbName = "vakjobsr";
     
     $conn = new mysqli($dbServername, $dbUsername, $dbPassword, $dbName);
 

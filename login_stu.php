@@ -49,6 +49,14 @@
                <ul class="dropdown-menu">
             <li><a href="registreer_bed.html">Registreer bedrijf</a></li>
             <li><a href="registreer_stu.html">Registreer student</a></li>
+                     <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Inloggen <b class="caret"></b></a>
+               <ul class="dropdown-menu">
+            <li><a href="login_bed.php">Bedrijf login</a></li>
+            <li><a href="login_stu.php">Student login</a></li>
+          </ul>
+        </li>
+
           </ul>
         </li>
               </ul>

@@ -23,7 +23,7 @@ if (empty($gebruikersnaam) || empty($wachtwoord)) {
 		$result = mysqli_query($conn, $sql);
 		$resultCheck = mysqli_num_rows($result);
 
-		if ($resultCheck > 0) {
+		if ($resultCheck > 0) { 
 			header("Location: ../gebruikers.php?toevoegenveld=usertaken");
 	    exit();
 

@@ -17,18 +17,18 @@
       header("Location: index.php");
     }
 
-    /**
-     * Verify if password fields are equal
-     * Or else
-     * @return false
-     */
-    // if($wachtwoord != $wachtwoordConfirm) {
-    //   // Change this structure code for later cuz it will display only a text
-    //   echo "Password fields are not equal!";
+    
+      // Verify if password fields are equal
+      // Or else
+      // @return false
+     
+    if($wachtwoord != $wachtwoordConfirm) {
+       //Change this structure code for later cuz it will display only a text
+      echo "Password fields are not equal!";
       
-    // } else {
+    } else {
       
-    // }
+     }
 
 
   }
@@ -102,7 +102,7 @@
   <div id="breadcrumb">
     <div class="container">
       <div class="breadcrumb">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.php">Home</a></li>
         <li>Contact</li>
       </div>
     </div>
@@ -120,7 +120,7 @@
           <div id="sendmessage">U bent ingelogd</div>
           <div id="errormessage"></div>
           <div class="well well-lg">
-          <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" role="form"> <!-- class="contactForm" -->
+          <form action="<?php echo $_SERVER['PHP_SELF']  ?>" method="POST" role="form"> <!-- class="contactForm" -->
             <div class="form-group">
               <input type="text" name="gebruikersnaam" class="form-control" id="gebruikersnaam" placeholder="gebruikersnaam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
               <div class="validation"></div>
@@ -128,14 +128,14 @@
             <div class="form-group"> 
               <input type="email" class="form-control" id="email" name="email" placeholder="voer email address in" data-rule="email" data-msg="voer een geldig email adres in">
             </div>
-            <!-- date picker -->
+            
             
             <div class="form-group">
               <input type="text" class="form-control" name="school" id="school" placeholder="school" data-msg="voer een geldige school in" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="adres" id="adres" placeholder="adres" data-msg="voer een geldige bedrijfsnaam in" />
+              <input type="text" class="form-control" name="adres" id="adres" placeholder="adres" data-msg="voer een geldig adres in" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
