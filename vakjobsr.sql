@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 06 feb 2018 om 20:59
+-- Gegenereerd op: 07 feb 2018 om 01:57
 -- Serverversie: 10.1.28-MariaDB
 -- PHP-versie: 7.1.11
 
@@ -185,7 +185,9 @@ ALTER TABLE `students`
 --
 ALTER TABLE `vacatures`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`,`employer_id`,`availability_id`);
+  ADD KEY `id` (`id`,`employer_id`,`availability_id`),
+  ADD KEY `employer_id` (`employer_id`),
+  ADD KEY `availability_id` (`availability_id`);
 
 --
 -- AUTO_INCREMENT voor geëxporteerde tabellen
@@ -232,6 +234,17 @@ ALTER TABLE `students`
 --
 ALTER TABLE `vacatures`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Beperkingen voor geëxporteerde tabellen
+--
+
+--
+-- Beperkingen voor tabel `vacatures`
+--
+ALTER TABLE `vacatures`
+  ADD CONSTRAINT `vacatures_ibfk_1` FOREIGN KEY (`employer_id`) REFERENCES `employers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vacatures_ibfk_2` FOREIGN KEY (`availability_id`) REFERENCES `availability` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
