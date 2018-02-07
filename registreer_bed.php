@@ -1,37 +1,37 @@
 <?php
-  if(isset($_POST['submit'])) {
-    require 'backend/database.php'; // Require database
+  // if(isset($_POST['submit'])) {
+  //   require 'backend/database.php'; // Require database
 
-    // Get POST request vars
-    $gebruikersnaam = $_POST['gebruikersnaam'];
-    $email  = $_POST['email'];
-    $bedrijfsnaam = $_POST['bedrijfsnaam'];
-    $adres  = $_POST['adres'];
-    $wachtwoord = $_POST['wachtwoord'];
-    $wachtwoordConfirm = $_POST['wachtwoordConfirm'];
+  //   // Get POST request vars
+  //   $gebruikersnaam = $_POST['gebruikersnaam'];
+  //   $email  = $_POST['email'];
+  //   $bedrijfsnaam = $_POST['bedrijfsnaam'];
+  //   $adres  = $_POST['adres'];
+  //   $wachtwoord = $_POST['wachtwoord'];
+  //   $wachtwoordConfirm = $_POST['wachtwoordConfirm'];
     
 
-    $sql = "INSERT INTO employers (gebruikersnaam, email, bedrijfsnaam, adres, wachtwoord) VALUES ('$gebruikersnaam', '$email', '$bedrijfsnaam', '$adres', '$wachtwoord')";
-    if($conn->query($sql)) {
-      echo "Bedrijf toegevoegd!";
-      header("Location: vacatures.php");
-    }
+  //   $sql = "INSERT INTO employers (gebruikersnaam, email, bedrijfsnaam, adres, wachtwoord) VALUES ('$gebruikersnaam', '$email', '$bedrijfsnaam', '$adres', '$wachtwoord')";
+  //   if($conn->query($sql)) {
+  //     echo "Bedrijf toegevoegd!";
+  //     header("Location: vacatures.php");
+  //   }
 
     
-      // Verify if password fields are equal
-      // Or else
-      // @return false
+  //     // Verify if password fields are equal
+  //     // Or else
+  //     // @return false
      
-    if($wachtwoord != $wachtwoordConfirm) {
-       //Change this structure code for later cuz it will display only a text
-      echo "Password fields are not equal!";
+  //   if($wachtwoord != $wachtwoordConfirm) {
+  //      //Change this structure code for later cuz it will display only a text
+  //     echo "Password fields are not equal!";
       
-    } else {
+  //   } else {
       
-     }
+  //    }
 
 
-  }
+  // }
 
 ?>
 <!DOCTYPE html>
@@ -124,7 +124,7 @@
           <div id="sendmessage">ingelogd</div>
           <div id="errormessage"></div>
           <div class="well well-lg">
-          <form action="<?php echo $_SERVER['PHP_SELF']  ?>" method="POST" role="form" class="contactForm">
+          <form action="backend/regbed.php" method="POST" role="form" class="contactForm">
             <div class="form-group">
               <input type="text" name="gebruikersnaam" class="form-control" id="gebruikersnaam" placeholder="gebruikersnaam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
               <div class="validation"></div>
@@ -147,7 +147,7 @@
               <div class="validation"></div>
             </div>
             <div class="form-group">
-              <input type="password" class="form-control"  id="wachtwoordConfirmm" placeholder="wachtwoord" data-match="#wachtwoord" data-match-error="wachtwoorden komen niet overeen" />
+              <input type="password" class="form-control"  name= "wachtwoordConfirm" id="wachtwoordConfirm" placeholder="wachtwoord" data-match="#wachtwoord" data-match-error="wachtwoorden komen niet overeen" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
