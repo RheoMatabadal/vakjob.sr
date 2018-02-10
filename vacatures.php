@@ -1,4 +1,27 @@
-php<!DOCTYPE html>
+<!DOCTYPE html>
+<?php
+  
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "vakjob";
+
+  // The connection
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  //testing the connection
+  if ($conn->connect_error){
+    die("connection failed: " .$conn->connect_error);
+  }
+
+  $sql = 'SELECT * FROM vacatures_test';
+  $result = $conn->query($sql);
+
+    //   if($conn->query($sql) == FALSE){
+    //     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    // }
+
+
+  ?>
 <html lang="en">
 
 <head>
@@ -77,29 +100,51 @@ php<!DOCTYPE html>
       </div>
     </div>
   </div>
-
-  <section id="blog" class="container">
+<?php
+  echo '<section id="blog" class="container">
     <div class="blog">
       <div class="row">
         <div class="col-xs-10 col-xs-offset-1">
-          <table class="table">
+          
+        <table class="table">
             <thead class="thead-default">
-              <tr class="active">
-                 <th><h3>Keuken hulp</h3></th>
+              <tr class="active">';
+                
+
+                
+              if($result->num_rows > 0){
+                //testing output of data
+                while ($row = $result ->fetch_assoc()){
+
+                  echo '<th><h3>' .$row["name"]. '</h3></th>
 
                  <th><h4>  <a href="#"><i class="glyphicon glyphicon-trash" style="color: black; float: right;"></i></a>    <a href="javascript:edit()"><i class="glyphicon glyphicon-pencil"  style="color: black; float: right;"></i></a>  <a href="javascript:bekijken()"><i class="glyphicon glyphicon-eye-open" style="color: black; float: right;"></a></i>   </h4></th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td><h4 style="margin-left: -17px;"><i class="glyphicon glyphicon-map-marker" style="color: black;"></i> Hotel Krasnapolsky</h4><br>
-                    <p>Assisteren in de keuken en in de bar van</p><br>
-                    <p>6pm-3am</p><br>    
-                    <p>Maandag - Zaterdag</p><br>
+            <tbody>';
+              
+
+                
+              // if($result->num_rows > 0){
+              //   //testing output of data
+              //   while ($row = $result ->fetch_assoc()){
+
+                  echo '<tr>
+                <td><h4 style="margin-left: -17px;"><i class="glyphicon glyphicon-map-marker" style="color: black;"></i>' .$row["locatie"].'</h4><br>
+                    <p>'.$row["message"]. '</p><br>
+                    <p>' .$row["start_werktijd"]. '-' .$row["eind_werktijd"]. '</p><br>   
+                    <p>' .$row["datefilter"]. '</p><br>
                     <a href="javascript:bekijken()" class="btn btn-primary" role="button" >Bekijken</a>
 
                 </td>
-              </tr>
+              </tr>';
+                } 
+              } else {
+                echo "0 results";
+              }
+                ?>
+              }
+              
             </tbody>
           </table>
         </div>
