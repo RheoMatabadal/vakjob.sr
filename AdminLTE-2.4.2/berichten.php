@@ -274,7 +274,7 @@
      
     </tr>
   </thead>
-  <tbody>
+  <tbody id="tbody">
   <?php
     require 'includes/database.php';
 
@@ -293,7 +293,7 @@
               <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
+              <li><a data-toggle="modal" data-target="#myModal<?php echo $result['id']; ?>"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
               <li><a href="javascript:verwijderen(<?php echo $result['id']; ?>)"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
             </ul>
           </div>
@@ -515,7 +515,7 @@
     $query = $conn->query($sql);
     while($result = $query->fetch_assoc()) {
       ?>
-<div class="modal fade" id="myModal" role="dialog">
+<div class="modal fade" id="myModal<?php echo $result['id']; ?>" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <form class="horizontal">
@@ -601,6 +601,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.min.js">  </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <script>
+   var $rows = $('#tbody tr');
+    $('#search').keyup(function() {
+        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+        
+        $rows.show().filter(function() {
+            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+            return !~text.indexOf(val);
+        }).hide();
+    });
+
  function verwijderen(message_id) {
    bootbox.confirm({
     message: "weet u zeker dat u dit bericht wilt verwijderen?",
