@@ -1,3 +1,28 @@
+<?php
+  require_once 'backend/database.php';
+
+  // Report submit
+  if(isset($_POST['report_submit'])) {
+    require 'backend/database.php'; // Require database
+
+    // Get POST request vars
+    $email  = $_POST['email'];
+    $description = $_POST['description'];
+
+    $sql = "INSERT INTO messages (email, bericht) VALUES ('$email', '$description')";
+    if($conn->query($sql)) {
+      // This is only text. Change this later!!
+      echo "Report verzonden!";
+      header("Location: contact.php");
+    }
+  }
+
+
+  // Report submit
+  
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,26 +119,26 @@
         <div class="status alert alert-success" style="display: none"></div>
         <div class="col-md-6 col-md-offset-3">
           <div id="sendmessage">Bedankt voor uw bericht</div>
-          <div id="errormessage"></div>
+          <div id="errormessage">Er is een fout opgetreden</div>
           <div class="well well-lg">
-          <form action="" method="post" role="form" class="contactForm">
+          <form action="backend/contact_proc.php" method="POST">
             <div class="form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Naam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
-              <div class="validation"></div>
+              <input type="text" name="name" id="name" class="form-control"  placeholder="Naam"  data-msg="voer aub meer dan 4 karakters in" />
+           
             </div>
             <div class="form-group">
               <input type="email" class="form-control" name="email" id="email" placeholder="Email" data-rule="email" data-msg="voer een geldig email adress in" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="subject" id="subject" placeholder="Onderwerp" data-rule="minlen:4" data-msg="voer minimaal 8 karakters in" />
+              <input type="text" class="form-control" name="onderwerp" id="onderwerp" placeholder="Onderwerp"  data-msg="voer minimaal 8 karakters in" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
-              <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Uw bericht"></textarea>
+              <textarea class="form-control" name="bericht" id="bericht" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Uw bericht"></textarea>
               <div class="validation"></div>
             </div>
-            <div class="text-center"><button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Verstuur bericht</button></div>
+            <div class="text-center"><button type="submit" name="submit" id="submit" class="btn btn-primary btn-lg" >Verstuur bericht</button></div>
           </form>
   </div>
         </div>
@@ -166,7 +191,7 @@
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <form class="horizontal">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="horizontal">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">Meld uw probleem</h4>
@@ -174,22 +199,23 @@
           <div class="modal-body">
             <div class="form-group">
               <div class="col-lg-14">
-                <input type="email" class="form-control" id="email" placeholder="email@adres.com">
+                <input type="email" class="form-control" name="email" id="email" placeholder="email@adres.com">
             </div>
             <div class="form-group">
               <div class="col-lg-14">
-                <textarea class="form-control" placeholder="voer uw bericht hier in"></textarea>
+                <textarea class="form-control" name="description" placeholder="voer uw bericht hier in"></textarea>
             </div>
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success">Versturen</button>
+            <button type="submit" name="report_submit" class="btn btn-success">Versturen</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
           </div>
     </form class = "horizontal">
       </div>
     </div>
-  </div>  
+  </div>
+</div>
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="js/jquery-2.1.1.min.js"></script>

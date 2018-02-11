@@ -33,6 +33,26 @@
 
   }
 
+//probleem melden
+
+  require_once 'backend/database.php';
+
+  // Report submit
+  if(isset($_POST['report_submit'])) {
+    require 'backend/database.php'; // Require database
+
+    // Get POST request vars
+    $email  = $_POST['email'];
+    $description = $_POST['description'];
+
+    $sql = "INSERT INTO messages (email, bericht) VALUES ('$email', '$description')";
+    if($conn->query($sql)) {
+      // This is only text. Change this later!!
+      echo "Report verzonden!";
+      header("Location: registreer_stu.php");
+    }
+  }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -206,10 +226,10 @@
       </div>
     </div>
   </footer>
-     <div class="modal fade" id="myModal" role="dialog">
+       <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <form class="horizontal">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="horizontal">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">Meld uw probleem</h4>
@@ -217,22 +237,24 @@
           <div class="modal-body">
             <div class="form-group">
               <div class="col-lg-14">
-                <input type="email" class="form-control" id="email" placeholder="email@adres.com">
+                <input type="email" class="form-control" name="email" id="email" placeholder="email@adres.com">
             </div>
             <div class="form-group">
               <div class="col-lg-14">
-                <textarea class="form-control" placeholder="voer uw bericht hier in"></textarea>
+                <textarea class="form-control" name="description" placeholder="voer uw bericht hier in"></textarea>
             </div>
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success">Versturen</button>
+            <button type="submit" name="report_submit" class="btn btn-success">Versturen</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
           </div>
     </form class = "horizontal">
       </div>
     </div>
-  </div>  
+  </div>
+</div>
+
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="js/jquery-2.1.1.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->

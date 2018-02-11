@@ -285,7 +285,7 @@
         <tr>
           <td><?php echo $result['email']; ?></td>
           <td><?php echo $result['onderwerp']; ?></td>
-          <td>12-12-2012</td>
+          <td><?php echo $result['datum']; ?></td>
           <td>
             <div class="btn-group">
             <a class="btn btn-primary" href="#"><i class="fa fa-envelope fa-fw"></i> Bericht</a>
@@ -508,31 +508,38 @@
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
+<?php
+    require 'includes/database.php';
+
+    $sql = "SELECT * FROM messages";
+    $query = $conn->query($sql);
+    while($result = $query->fetch_assoc()) {
+      ?>
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <form class="horizontal">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">bericht onderwerp</h4>
+            <h4 class="modal-title">Onderwerp: <?php echo $result['onderwerp']; ?></h4>
           </div>
           <div class="modal-body">
             <div class="form-group">
             <div class="col-md-8">
   <form>
     <div class="form-group input-group-sm">
-      <label for="usr">Van</label>
-      <input type="text" class="form-control" id="gebruikersnaam" readonly>
+      <label for="usr">Naam:<?php echo $result['naam']; ?></label>
+      <!--<input type="text" class="form-control" id="gebruikersnaam" readonly>-->
     </div>
     <div class="form-group input-group-sm">
-      <label for="usr">Email:</label>
-      <input type="email" class="form-control" id="email" readonly>
+      <label for="usr">Email:<?php echo $result['email']; ?></label>
+     <!-- <input type="email" class="form-control" id="email" readonly> -->
     </div>
     <div class="form-group">
       <label for="usr">Bericht:</label>
-      <textarea class="form-control" id="bericht" rows="5"> </textarea>  
+      <textarea class="form-control" id="bericht" rows="5"> <?php echo $result['bericht'];?> </textarea>  
     </div>
-   <button type="submit" class="btn btn-default">Sluiten</button>
+   <button type="button" class="close" data-dismiss="modal">Sluiten</button>
     </div>
     
     
@@ -548,6 +555,10 @@
       </div>
     </div>
   </div>
+
+   <?php
+    }
+  ?>
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
