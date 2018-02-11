@@ -1,9 +1,18 @@
 <?php
-  require_once 'backend/database.php';
+  $dbServername = "localhost";
+    $dbUsername = "root";
+    $dbPassword = "root";
+    $dbName = "vakjobsr";
+    
+    $conn = new mysqli($dbServername, $dbUsername, $dbPassword, $dbName);
+
+    if($conn->connect_error) {
+    echo "Error:" . $conn->connect_error;
+  }
 
   // Report submit
   if(isset($_POST['submit'])) {
-    require 'backend/database.php'; // Require database
+     // Require database
 
     // Get POST request vars
     $name= $_POST['name'];

@@ -1,7 +1,54 @@
-<?php 
-session_start();
- ?>
 <!DOCTYPE html>
+<?php
+
+$servername = "localhost";
+  $username = "root";
+  $password = "root";
+  $dbname = "vakjobsr";
+
+  // The connection
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  //testing the connection
+  if ($conn->connect_error){
+    die("connection failed: " .$conn->connect_error);
+  }
+
+  if(isset($_POST["submit"])){
+
+    $titel = $_POST["titel"];
+    $message = $_POST["message"];
+    $img = $_POST["img"];
+    $foto = $_POST["foto"];
+
+    $sql = "INSERT INTO announcements (user_id, topic, description, img) VALUES (1, '$titel', '$message', '$foto');";
+
+    if($conn->query($sql) == TRUE){
+      echo "Report verzonden";
+    } else{
+      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+  }
+
+  if(isset($_POST["submitslider"])){
+
+    $titel = $_POST["titel"];
+    $message = $_POST["message"];
+    $img = $_POST["img"];
+    $foto = $_POST["foto"];
+
+    $sql = "INSERT INTO announcements (user_id, topic, description, img) VALUES (1, '$titel', '$message', '$foto');";
+
+    if($conn->query($sql) == TRUE){
+      echo "Report verzonden";
+    } else{
+      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+  }
+
+  $sql = 'SELECT * FROM announcements';
+  $result = $conn->query($sql);
+
+?>
 <html>
 <head>
   <meta charset="utf-8">
@@ -136,14 +183,12 @@ session_start();
           <!-- User Account: style can be found in dropdown.less -->
          
               <!-- Menu Footer-->
-             <form action="includes/logout.inc.php" method="POST">
               <li class="user-footer">
                
                 <div class="pull-right">
-                  <button type="submit" name="submit" class="btn btn-default btn-flat">uitloggen</button>
+                  <a href="#" class="btn btn-default btn-flat">uitloggen</a>
                 </div>
               </li>
-            </form>
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
@@ -221,215 +266,100 @@ session_start();
 
     <!-- Main content -->
     <section class="content">
-      <!-- Small boxes (Stat box) -->
+ <div class="container">
+  <h1>Updates:</h1>
+<div class="container">
     
-      <!-- Main row -->
-     
-          <!-- /.nav-tabs-custom -->
+    <div class="row">
+        <div class="col-md-4 col-md-offset-7">
+            <form action="" class="search-form">
+                <div class="form-group has-feedback">
+                <label for="search" class="sr-only">Search</label>
+                <input type="text" class="form-control" name="search" id="search" placeholder="zoek">
+                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-          <!-- Chat box -->
-          
-              
-            <!-- /.chat -->
-            
-            <!-- /.box-header -->
-              
+<div class="container">
+  <h2>Update toevoegen:</h2>
+  <div class="col-md-8">
+  <form action = "" method="post">
+    <div class="form-group input-group-sm">
+      <label placeholder="Titel" for="ttl">Titel:</label>
+      <input type="text" name="titel" class="form-control" id="titel">
+    </div>
+    <div class="form-group">
+      <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Uw bericht"></textarea>
+    </div>
+     <div>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <span class="btn btn-default btn-file">
+                    Foto toevoegen <input name = "img" type="file" id="imgInp">
+                </span>
+            </span>
+            <input type="text" name ="foto" class="form-control" readonly>
+        </div>
+        <img id='img-upload'/>
+    </div>
+    <div class="input-group form-group">
+      <button name="submit" type="submit" class="btn btn-default">Voeg toe</button>
+    </div>
+    <div >
+      <button name="submitslider" type="submit" class="btn btn-default" style="background-color: red; color: white;">Voeg toe aan slider</button>
+    </div>
+  </form>
+  </div>
+
+<?php
+
+echo '<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Artikel</th>
+      <th scope="col">Omschrijving</th>
+      <th scope="col">Datum</th>
+      <th scope="col">Actie</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    <tr>';
+
+    if($result->num_rows > 0){
+      while ($row = $result -> fetch_assoc()){
+
+    
+     
+     echo '<td>' .$row["topic"]. '</td>
+      <td>' .$row["description"]. '</td>
+      <td>' .$row["created_at"]. '</td>
+      <td>';?>
+        <form action = "updatesdelete.php" method="post">
+      <span class="glyphicon glyphicon-trash" style="color: red;"></span>
+      <input type="hidden" value="<?php echo $row["id"]?> " name="id">
+      <input class="btn btn-primary" type="submit" value="Delete">
+      </form>
+ 
+      </td>
+    </tr>
+
+    <?php
+  }
+  } else {
+    echo "0 result";
+  }?>
+  </tbody>
+</table>
+     
+
  
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Create the tabs -->
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <!-- Home tab content -->
-      <div class="tab-pane" id="control-sidebar-home-tab">
-        <h3 class="control-sidebar-heading">Recent Activity</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
 
-                <p>Will be 23 on April 24th</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-user bg-yellow"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-
-                <p>New phone +1(800)555-1234</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-
-                <p>nora@example.com</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-file-code-o bg-green"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
-
-                <p>Execution time 5 seconds</p>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-        <h3 class="control-sidebar-heading">Tasks Progress</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Custom Template Design
-                <span class="label label-danger pull-right">70%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Update Resume
-                <span class="label label-success pull-right">95%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Laravel Integration
-                <span class="label label-warning pull-right">50%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Back End Framework
-                <span class="label label-primary pull-right">68%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-      </div>
-      <!-- /.tab-pane -->
-      <!-- Stats tab content -->
-      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-      <!-- /.tab-pane -->
-      <!-- Settings tab content -->
-      <div class="tab-pane" id="control-sidebar-settings-tab">
-        <form method="post">
-          <h3 class="control-sidebar-heading">General Settings</h3>
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Report panel usage
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Some information about this general settings option
-            </p>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Allow mail redirect
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Other sets of options are available
-            </p>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Expose author name in posts
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Allow the user to show his name in blog posts
-            </p>
-          </div>
-          <!-- /.form-group -->
-
-          <h3 class="control-sidebar-heading">Chat Settings</h3>
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Show me as online
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Turn off notifications
-              <input type="checkbox" class="pull-right">
-            </label>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Delete chat history
-              <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
-            </label>
-          </div>
-          <!-- /.form-group -->
-        </form>
-      </div>
-      <!-- /.tab-pane -->
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
-</div>
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
@@ -469,5 +399,43 @@ session_start();
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+
+<!--De script for picture pop-up-->
+<script type="text/javascript">
+$(document).ready( function() {
+      $(document).on('change', '.btn-file :file', function() {
+    var input = $(this),
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.trigger('fileselect', [label]);
+    });
+
+    $('.btn-file :file').on('fileselect', function(event, label) {
+        
+        var input = $(this).parents('.input-group').find(':text'),
+            log = label;
+        
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+      
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#img-upload').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgInp").change(function(){
+        readURL(this);
+    });   
+  });</script>
 </body>
 </html>
