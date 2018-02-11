@@ -6,10 +6,11 @@
     require 'backend/database.php'; // Require database
 
     // Get POST request vars
+    $subject  = $_POST['subject'];
     $email  = $_POST['email'];
     $description = $_POST['description'];
 
-    $sql = "INSERT INTO messages (email, bericht) VALUES ('$email', '$description')";
+    $sql = "INSERT INTO messages (onderwerp, email, bericht, datum) VALUES ('$subject', '$email', '$description', CURDATE())";
     if($conn->query($sql)) {
       // This is only text. Change this later!!
       echo "Report verzonden!";
@@ -307,7 +308,10 @@
        		</div>
        		<div class="modal-body">
          		<div class="form-group">
-         			<div class="col-lg-14">
+             <div class="col-lg-14">
+         				<input type="text" class="form-control" name="subject" id="subject" placeholder="Onderwerp">
+         		</div>
+               <div class="col-lg-14">
          				<input type="email" class="form-control" name="email" id="email" placeholder="email@adres.com">
          		</div>
          		<div class="form-group">
