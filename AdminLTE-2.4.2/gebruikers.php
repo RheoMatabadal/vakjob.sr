@@ -14,6 +14,19 @@ if(isset($_GET['submit_delete'])) {
   }
 }
 
+if(isset($_POST['gebruiker_bewerken'])) {
+  $id = $_POST['user_id'];
+  $username = $_POST['gebruikersnaam'];
+  $password = $_POST['wachtwoord'];
+  $user_level = $_POST['functie'];
+
+  $sql = (!empty($password)) ? 
+      "UPDATE admins SET username = '$username', wachtwoord = '$password', user_level = '$user_level' WHERE id = '$id'" : 
+      "UPDATE admins SET username = '$username', user_level = '$user_level' WHERE id = '$id'";
+      
+  $conn->query($sql);
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -273,10 +286,9 @@ if(isset($_GET['submit_delete'])) {
       <th scope="col">Gebruikersnaam</th>
       <th scope="col">Functie</th>
       <th scope="col">Acties</th>
-     
     </tr>
   </thead>
-  <tbody>
+  <tbody id="tbody">
 
     <?php
       require 'includes/database.php';
@@ -554,23 +566,24 @@ if(isset($_GET['submit_delete'])) {
           <div class="modal-body">
           <div class="form-group">
             <div class="col-md-8">
-              <form>
+              <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+                <input type="hidden" name="user_id" value="<?php echo $result['id']; ?>">
                 <div class="form-group input-group-sm">
-                  <label for="usr">Naam:</label>
-                  <input type="text" class="form-control" value="<?php echo $result['username']; ?>" id="gebruikersnaam">
+                  <label for="usr">Gebruikersnaam:</label>
+                  <input type="text" class="form-control" name="gebruikersnaam" value="<?php echo $result['username']; ?>" id="gebruikersnaam">
                 </div>
                 <div class="form-group input-group-sm">
                   <label for="pwd">Wachtwoord:</label>
-                  <input type="password" class="form-control" id="wachtwoord">
+                  <input type="password" class="form-control" name="wachtwoord" id="wachtwoord">
                 </div>
                 <div class="form-group input-group-sm">
                 <label for="sel1">Functie:</label>
-                <select class="form-control" value="<?php echo $result['user_level']; ?>" id="sel1">
+                <select name="functie" class="form-control" value="<?php echo $result['user_level']; ?>" id="sel1">
                   <option value="1">Admin</option>
                   <option value="2"> Content Beheer</option>
                 </select>
                 </div>
-              <button type="submit" class="btn btn-default">Opslaan</button>
+              <button type="submit" name="gebruiker_bewerken" class="btn btn-default">Opslaan</button>
             </form>
           </div>
           </div>
@@ -630,6 +643,17 @@ if(isset($_GET['submit_delete'])) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.min.js">  </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <script>
+  
+  var $rows = $('#tbody tr');
+  $('#search').keyup(function() {
+      var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+      
+      $rows.show().filter(function() {
+          var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+          return !~text.indexOf(val);
+      }).hide();
+  });
+
  function verwijderen(admin_id) {
    bootbox.confirm({
     message: "weet u zeker dat u dit bedrijf wilt verwijderen?",
