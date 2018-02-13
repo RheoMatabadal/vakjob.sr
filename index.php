@@ -42,7 +42,7 @@
 </head>
 
 <body>
-  <header>
+<header>
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="navigation">
         <div class="container">
@@ -54,41 +54,35 @@
 							<span class="icon-bar"></span>
 						</button>
             <div class="navbar-brand">
-              <a href="index.php"><h1><span>VAKJOB</span>.SR</h1></a>
+              <a href="index.html"><h1><span>VAKJOB</span>.SR</h1></a>
             </div>
           </div>
-			
+
           <div class="navbar-collapse collapse">
             <div class="menu">
               <ul class="nav nav-tabs" role="tablist">
-
-                <li role="presentation"><a href="index.php" class="active">Home</a></li>               
+                <li role="presentation"><a href="index.php">Home</a></li>
                 <li role="presentation"><a href="vacatures.php">Vacatures</a></li>
-                <li role="presentation"><a href="contact.php">Contact</a></li>
+                <li role="presentation"><a href="contact.php" >Contact</a></li>
                  <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Registreren <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Registreren <b class="caret"></b></a>
                <ul class="dropdown-menu">
-            <li><a href="registreer_bed.php">Registreer bedrijf</a></li>
+            <li><a href="registreer_stu.php">Registreer bedrijf</a></li>
             <li><a href="registreer_stu.php">Registreer student</a></li>
           </ul>
         </li>
-				 
-<li class="dropdown">
+        <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Inloggen <b class="caret"></b></a>
                <ul class="dropdown-menu">
-            <li><a href="login_bed.php">Bedrijf login</a></li>
+            <li><a href="login_stu.php">Bedrijf login</a></li>
             <li><a href="login_stu.php">Student login</a></li>
           </ul>
         </li>
-                
               </ul>
-              
+            
             </div>
-
           </div>
-
         </div>
-
       </div>
     </nav>
   </header>
