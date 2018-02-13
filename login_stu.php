@@ -1,3 +1,22 @@
+<?php
+  require_once 'backend/database.php';
+
+  // Report submit
+  if(isset($_POST['report_submit'])) {
+    require 'backend/database.php'; // Require database
+
+    // Get POST request vars
+    $email  = $_POST['email'];
+    $description = $_POST['description'];
+
+    $sql = "INSERT INTO messages (email, bericht) VALUES ('$email', '$description')";
+    if($conn->query($sql)) {
+      // This is only text. Change this later!!
+      echo "Report verzonden!";
+      header("Location: login_stu.php");
+    }
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +68,16 @@
                <ul class="dropdown-menu">
             <li><a href="registreer_bed.html">Registreer bedrijf</a></li>
             <li><a href="registreer_stu.html">Registreer student</a></li>
+                 
+
           </ul>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Inloggen <b class="caret"></b></a>
+               <ul class="dropdown-menu">
+            <li><a href="login_bed.php">Bedrijf login</a></li>
+            <li><a href="login_stu.php">Student login</a></li>
+          </ul>
+        </li>
         </li>
               </ul>
             
@@ -83,7 +111,7 @@
           <div class="well well-lg">
             <form class="form-inline" action="/action_page.php">
   <div class="form-group">
-    <label for="email" class="text-success">Email adress:</label>
+    <label for="email" class="text-success">Gebruikersnaam:</label>
     <input type="email" class="form-control" id="email">
   </div>
   <div class="form-group">
@@ -141,10 +169,10 @@
     </div>
   </footer>
     
-     <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <form class="horizontal">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="horizontal">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">Meld uw probleem</h4>
@@ -152,22 +180,24 @@
           <div class="modal-body">
             <div class="form-group">
               <div class="col-lg-14">
-                <input type="email" class="form-control" id="email" placeholder="email@adres.com">
+                <input type="email" class="form-control" name="email" id="email" placeholder="email@adres.com">
             </div>
             <div class="form-group">
               <div class="col-lg-14">
-                <textarea class="form-control" placeholder="voer uw bericht hier in"></textarea>
+                <textarea class="form-control" name="description" placeholder="voer uw bericht hier in"></textarea>
             </div>
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success">Versturen</button>
+            <button type="submit" name="report_submit" class="btn btn-success">Versturen</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
           </div>
     </form class = "horizontal">
       </div>
     </div>
-  </div>  
+  </div>
+</div>
+
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="js/jquery-2.1.1.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->

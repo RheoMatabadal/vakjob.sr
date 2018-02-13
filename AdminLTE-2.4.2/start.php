@@ -1,6 +1,3 @@
-<?php 
-session_start();
- ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -227,7 +224,7 @@ session_start();
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
+              <h3><?php require 'includes/student_num.php';?></h3>
 
               <p>Studenten</p>
             </div>
@@ -242,7 +239,7 @@ session_start();
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>13</h3>
+              <h3><?php require 'includes/bedrijven_num.php'; ?></h3>
 
               <p>Bedrijven</p>
             </div>
@@ -257,7 +254,7 @@ session_start();
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+              <h3><?php require 'includes/vacatures_num.php'; ?></h3>
 
               <p>Vacatures</p>
             </div>
@@ -272,7 +269,7 @@ session_start();
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>6</h3>
+              <h3><?php require 'includes/berichten_num.php'; ?></h3>
 
               <p>Berichten</p>
             </div>

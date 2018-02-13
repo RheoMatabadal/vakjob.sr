@@ -17,20 +17,40 @@
       header("Location: index.php");
     }
 
-    /**
-     * Verify if password fields are equal
-     * Or else
-     * @return false
-     */
-    // if($wachtwoord != $wachtwoordConfirm) {
-    //   // Change this structure code for later cuz it will display only a text
-    //   echo "Password fields are not equal!";
+    
+      // Verify if password fields are equal
+      // Or else
+      // @return false
+     
+    if($wachtwoord != $wachtwoordConfirm) {
+       //Change this structure code for later cuz it will display only a text
+      echo "Password fields are not equal!";
       
-    // } else {
+    } else {
       
-    // }
+     }
 
 
+  }
+
+//probleem melden
+
+  require_once 'backend/database.php';
+
+  // Report submit
+  if(isset($_POST['report_submit'])) {
+    require 'backend/database.php'; // Require database
+
+    // Get POST request vars
+    $email  = $_POST['email'];
+    $description = $_POST['description'];
+
+    $sql = "INSERT INTO messages (email, bericht) VALUES ('$email', '$description')";
+    if($conn->query($sql)) {
+      // This is only text. Change this later!!
+      echo "Report verzonden!";
+      header("Location: registreer_stu.php");
+    }
   }
 
 ?>
@@ -102,7 +122,7 @@
   <div id="breadcrumb">
     <div class="container">
       <div class="breadcrumb">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.php">Home</a></li>
         <li>Contact</li>
       </div>
     </div>
@@ -120,7 +140,7 @@
           <div id="sendmessage">U bent ingelogd</div>
           <div id="errormessage"></div>
           <div class="well well-lg">
-          <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" role="form"> <!-- class="contactForm" -->
+          <form action="<?php echo $_SERVER['PHP_SELF']  ?>" method="POST" role="form"> <!-- class="contactForm" -->
             <div class="form-group">
               <input type="text" name="gebruikersnaam" class="form-control" id="gebruikersnaam" placeholder="gebruikersnaam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
               <div class="validation"></div>
@@ -128,14 +148,14 @@
             <div class="form-group"> 
               <input type="email" class="form-control" id="email" name="email" placeholder="voer email address in" data-rule="email" data-msg="voer een geldig email adres in">
             </div>
-            <!-- date picker -->
+            
             
             <div class="form-group">
               <input type="text" class="form-control" name="school" id="school" placeholder="school" data-msg="voer een geldige school in" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="adres" id="adres" placeholder="adres" data-msg="voer een geldige bedrijfsnaam in" />
+              <input type="text" class="form-control" name="adres" id="adres" placeholder="adres" data-msg="voer een geldig adres in" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
@@ -206,10 +226,10 @@
       </div>
     </div>
   </footer>
-     <div class="modal fade" id="myModal" role="dialog">
+       <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <form class="horizontal">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="horizontal">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">Meld uw probleem</h4>
@@ -217,22 +237,24 @@
           <div class="modal-body">
             <div class="form-group">
               <div class="col-lg-14">
-                <input type="email" class="form-control" id="email" placeholder="email@adres.com">
+                <input type="email" class="form-control" name="email" id="email" placeholder="email@adres.com">
             </div>
             <div class="form-group">
               <div class="col-lg-14">
-                <textarea class="form-control" placeholder="voer uw bericht hier in"></textarea>
+                <textarea class="form-control" name="description" placeholder="voer uw bericht hier in"></textarea>
             </div>
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success">Versturen</button>
+            <button type="submit" name="report_submit" class="btn btn-success">Versturen</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
           </div>
     </form class = "horizontal">
       </div>
     </div>
-  </div>  
+  </div>
+</div>
+
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="js/jquery-2.1.1.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->

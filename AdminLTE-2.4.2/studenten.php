@@ -261,7 +261,7 @@ session_start();
      
     </tr>
   </thead>
-  <tbody>
+  <tbody id="tbody">
     <tr>
       <td>Kevin</td>
       <td>Scott</td>
@@ -595,6 +595,16 @@ session_start();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.min.js">  </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <script>
+   var $rows = $('#tbody tr');
+    $('#search').keyup(function() {
+        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+        
+        $rows.show().filter(function() {
+            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+            return !~text.indexOf(val);
+        }).hide();
+    });
+
  function verwijderen() {
    bootbox.confirm({
     message: "weet u zeker dat u deze student wilt verwijderen?",

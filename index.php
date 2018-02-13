@@ -2,14 +2,15 @@
   require_once 'backend/database.php';
 
   // Report submit
-  if(isset($_POST['submit'])) {
+  if(isset($_POST['report_submit'])) {
     require 'backend/database.php'; // Require database
 
     // Get POST request vars
+    $subject  = $_POST['subject'];
     $email  = $_POST['email'];
     $description = $_POST['description'];
 
-    $sql = "INSERT INTO messages (email, bericht) VALUES ('$email', '$description')";
+    $sql = "INSERT INTO messages (onderwerp, email, bericht, datum) VALUES ('$subject', '$email', '$description', CURDATE())";
     if($conn->query($sql)) {
       // This is only text. Change this later!!
       echo "Report verzonden!";
@@ -95,7 +96,24 @@
   <section id="main-slider" class="no-margin">
     <div class="carousel slide">
       <div class="carousel-inner">
+       <!--  <?php
+           // display();
+
+           // function display(){
+          //    $conn = mysql_connect("localhost", "root", "root");
+           //   mysql_select_db("vakjobsr", $conn);
+          //    $query="SELECT * FROM images";
+         //     $result=mysql_query($query, $conn);
+         //     while($row = mysql_fetch_array($result)){
+          //      echo '<img height="300", width="300" src="data:image;base64,'.$row[2]'">';
+           //   }
+            
+
+
+         //   }
+         ?> -->
         <div class="item active" style="background-image: url(images/slider/bg2.jpg)">
+
           <div class="container">
             <div class="row slide-margin">
               <div class="col-sm-6">
@@ -204,7 +222,15 @@
       </div> -->
 
       <?php
-        $sql = "SELECT * FROM announcements";
+        // Announcements pagination
+        if(isset($_GET['page_number'])) {
+          $page_number = $_GET['page_number'];
+        } else {
+          $page_number = 0;
+        }
+        $limit_announcement = $page_number + 3;
+
+        $sql = "SELECT * FROM announcements LIMIT $page_number ,$limit_announcement";
         $query = $conn->query($sql);
         while($result = $query->fetch_assoc()) {
           // print_r($result);
@@ -217,15 +243,23 @@
           <?php
         }
 
+        $sql = "SELECT count(id) AS num_announcements FROM announcements";
+        $query = $conn->query($sql);
+        $result = $query->fetch_assoc();
+        $ann_count = $result['num_announcements'];
+        $pages = intval($ann_count / 3);
+        $leftOvers = $ann_count % 3;
+        $pages = ($leftOvers > 0) ? $pages + 1 : $pages;
       ?>
       <div class="col-xs-10 col-xs-offset-3">
           <ul class="pagination pagination-lg">
             <li><a href="#"><i class="fa fa-long-arrow-left"></i>Vorige pagina</a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
+            <?php
+              for($i=0; $i < $pages; $i++) {
+                $pagenumber = $i + 1;
+                echo ($i == 0) ? '<li><a href="' . $_SERVER['PHP_SELF'] . '?page_number=' . ($i * 3) . '">1</a></li>' : '<li><a href="' . $_SERVER['PHP_SELF'] . '?page_number=' . ($i * 3) . '">'.$pagenumber.'</a></li>';
+              }
+            ?>
             <li><a href="#">Volgende Pagina<i class="fa fa-long-arrow-right"></i></a></li>
           </ul>
           <!--/.pagination-->
@@ -284,14 +318,17 @@
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-      	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="horizontal">
+      	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="horizontal">
         	<div class="modal-header">
           	<button type="button" class="close" data-dismiss="modal">&times;</button>
           	<h4 class="modal-title">Meld uw probleem</h4>
        		</div>
        		<div class="modal-body">
          		<div class="form-group">
-         			<div class="col-lg-14">
+             <div class="col-lg-14">
+         				<input type="text" class="form-control" name="subject" id="subject" placeholder="Onderwerp">
+         		</div>
+               <div class="col-lg-14">
          				<input type="email" class="form-control" name="email" id="email" placeholder="email@adres.com">
          		</div>
          		<div class="form-group">
