@@ -4,7 +4,7 @@
   
   $servername = "localhost";
   $username = "root";
-  $password = "";
+  $password = "root";
   $dbname = "vakjobsr";
 
   // The connection
@@ -28,7 +28,7 @@
 
   // Report submit
   if(isset($_POST['report_submit'])) {
-    require 'backend/database.php'; // Require database
+  require 'backend/database.php'; // Require database
 
     // Get POST request vars
     $email  = $_POST['email'];

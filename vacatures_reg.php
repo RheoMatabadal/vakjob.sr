@@ -3,9 +3,9 @@
 	
 	$servername = "localhost";
 	$username = "root";
-	$password = "";
+	$password = "root";
 	$dbname = "vakjobsr";
- // require_once 'backend/database.php';
+  require_once 'backend/database.php';
 
   // Report submit
   if(isset($_POST['report_submit'])) {
