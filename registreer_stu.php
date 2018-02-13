@@ -6,12 +6,30 @@
     $gebruikersnaam = $_POST['gebruikersnaam'];
     $email  = $_POST['email'];
     $school = $_POST['school'];
+    $company = $_POST['company'];
     $adres  = $_POST['adres'];
     $wachtwoord = $_POST['wachtwoord'];
     $wachtwoordConfirm = $_POST['wachtwoordConfirm'];
     $date = $_POST['date'];
+    $user_type = $_POST['user_type'];
 
-    $sql = "INSERT INTO students (gebruikersnaam, email, school, adres, wachtwoord) VALUES ('$gebruikersnaam', '$email', '$school', '$adres', '$wachtwoord')";
+    /**
+     * Determine user_type
+     * @return user_type
+     */
+    switch($user_type) {
+      case 'student':
+        $sql = "INSERT INTO students (gebruikersnaam, email, school, adres, wachtwoord) VALUES ('$gebruikersnaam', '$email', '$school', '$adres', '$wachtwoord')";
+        break;
+      
+      case 'employer':
+        $sql = "INSERT INTO employers (gebruikersnaam, email, bedrijfsnaam, adres, wachtwoord) VALUES ('$gebruikersnaam', '$email', '$company', '$adres', '$wachtwoord')";
+        break;
+
+      default:
+        $sql = "INSERT INTO students (gebruikersnaam, email, school, adres, wachtwoord) VALUES ('$gebruikersnaam', '$email', '$school', '$adres', '$wachtwoord')";
+    }
+
     if($conn->query($sql)) {
       echo "Student toegevoegd!";
       header("Location: index.php");
@@ -141,6 +159,7 @@
           <div id="errormessage"></div>
           <div class="well well-lg">
           <form action="<?php echo $_SERVER['PHP_SELF']  ?>" method="POST" role="form"> <!-- class="contactForm" -->
+            
             <div class="form-group">
               <input type="text" name="gebruikersnaam" class="form-control" id="gebruikersnaam" placeholder="gebruikersnaam" data-rule="minlen:4" data-msg="voer aub meer dan 4 karakters in" />
               <div class="validation"></div>
@@ -149,21 +168,34 @@
               <input type="email" class="form-control" id="email" name="email" placeholder="voer email address in" data-rule="email" data-msg="voer een geldig email adres in">
             </div>
             
-            
             <div class="form-group">
+              <p style="color: black">Registreer als:</p>
+              <input type="radio" id="radio1" name="user_type" value="student" checked><span style="color: black"> Student</span><br>
+              <input type="radio" id="radio2" name="user_type" value="employer"><span style="color: black"> Bedrijf</span><br>
+            </div>
+
+            <div class="form-group" id="school_section">
               <input type="text" class="form-control" name="school" id="school" placeholder="school" data-msg="voer een geldige school in" />
               <div class="validation"></div>
             </div>
+
+            <div class="form-group" style="display: none;" id="company_section">
+              <input type="text" class="form-control" name="company" id="company" placeholder="Bedrijf naam" data-msg="voer een geldige bedrijf naam in" />
+              <div class="validation"></div>
+            </div>
+
             <div class="form-group">
               <input type="text" class="form-control" name="adres" id="adres" placeholder="adres" data-msg="voer een geldig adres in" />
               <div class="validation"></div>
             </div>
+
             <div class="form-group">
               <input type="password" class="form-control" name="wachtwoord" id="wachtwoord" placeholder="wachtwoord" data-rule="minlen:8" data-msg="voer minimaal 8 karakters in" />
               <div class="validation"></div>
             </div>
+
             <div class="form-group">
-              <input type="password" class="form-control" name="wachtwoordConfirm"  id="wachtwoordConfirm" placeholder="wachtwoord" data-match="#wachtwoord" data-match-error="wachtwoorden komen niet overeen" />
+              <input type="password" class="form-control" name="wachtwoordConfirm"  id="wachtwoordConfirm" placeholder="wachtwoord herhalen" data-match="#wachtwoord" data-match-error="wachtwoorden komen niet overeen" />
               <div class="validation"></div>
             </div>
             
@@ -283,7 +315,23 @@
             todayHighlight: true,
             autoclose: true,
         })
-    })
+    });
+
+    $('#radio1').click(function() {
+      $('#radio2').removeAttr('checked');
+      $('#radio1').attr('checked', '');
+      
+      $('#school_section').show();
+      $('#company_section').hide();
+    });
+
+    $('#radio2').click(function() {
+      $('#radio1').removeAttr('checked');
+      $('#radio2').attr('checked', '');
+      
+      $('#school_section').hide();
+      $('#company_section').show();
+    });
 </script>
 
 </body>
