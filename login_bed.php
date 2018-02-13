@@ -109,7 +109,7 @@
           <div class="well well-lg">
             <form class="form-inline" action="/action_page.php">
   <div class="form-group">
-    <label for="email" class="text-success">Email adress:</label>
+    <label for="email" class="text-success">Gebruikers:</label>
     <input type="email" class="form-control" id="email">
   </div>
   <div class="form-group">

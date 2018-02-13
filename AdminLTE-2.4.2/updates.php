@@ -286,6 +286,43 @@ $servername = "localhost";
 <div class="container">
   <h2>Update toevoegen:</h2>
   <div class="col-md-8">
+
+<form method="POST" enctype="multipart/form-data">
+  <label> Voorgevel foto</label>
+  <input type="file" name="image">
+  <br>
+  <input class="btn btn-primary" type="submit" name="submit_foto" value="foto uploaden">
+</form>
+<?php 
+if (isset($_POST['submit_foto'])) {
+  if (getimagesize($_FILES['image']['tmp_name'])==FALSE) {
+    echo "FOUT, selecteer een geldige foto";
+  }
+  else{
+    $name=addslashes($_FILES['image']['name']);
+    $image=base64_encode(file_get_contents(addslashes($_FILES['image']['tmp_name'])));
+    saveimage($name,$image);
+  }
+}
+function saveimage($name, $image){
+  $servername = "localhost";
+  $username = "root";
+  $password = "root";
+  $dbname = "vakjobsr";
+
+  // The connection
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  $sql= "INSERT INTO images (img_name,img) VALUES ('$name','$image')";
+  $query = mysqli_query($conn, $sql);
+  if ($query) {
+    echo "foto geupload";
+  }
+  else{
+    echo "foto niet geupload";
+  }
+}
+?>
+
   <form action = "" method="post">
     <div class="form-group input-group-sm">
       <label placeholder="Titel" for="ttl">Titel:</label>
@@ -308,9 +345,11 @@ $servername = "localhost";
     <div class="input-group form-group">
       <button name="submit" type="submit" class="btn btn-default">Voeg toe</button>
     </div>
+    <form method="POST">
     <div >
       <button name="submitslider" type="submit" class="btn btn-default" style="background-color: red; color: white;">Voeg toe aan slider</button>
     </div>
+    </form>
   </form>
   </div>
 
@@ -436,6 +475,8 @@ $(document).ready( function() {
     $("#imgInp").change(function(){
         readURL(this);
     });   
-  });</script>
+  });
+
+</script>
 </body>
 </html>

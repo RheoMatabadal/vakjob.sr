@@ -96,7 +96,24 @@
   <section id="main-slider" class="no-margin">
     <div class="carousel slide">
       <div class="carousel-inner">
+       <!--  <?php
+            display();
+
+            function display(){
+              $conn = mysql_connect("localhost", "root", "root");
+              mysql_select_db("vakjobsr", $conn);
+              $query="SELECT * FROM images";
+              $result=mysql_query($query, $conn);
+              while($row = mysql_fetch_array($result)){
+                echo '<img height="300", width="300" src="data:image;base64,'.$row[2]'">';
+              }
+            
+
+
+            }
+         ?> -->
         <div class="item active" style="background-image: url(images/slider/bg2.jpg)">
+
           <div class="container">
             <div class="row slide-margin">
               <div class="col-sm-6">
