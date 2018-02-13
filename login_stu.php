@@ -1,4 +1,5 @@
 <?php
+  session_start();
   require_once 'backend/database.php';
 
   // Report submit
@@ -15,6 +16,42 @@
       echo "Report verzonden!";
       header("Location: login_stu.php");
     }
+  }
+
+  // Login
+  if(isset($_POST['login_submit'])) {
+    // Input
+    $email = $_POST['email'];
+    $password = $_POST['pwd'];
+    $user_type = $_POST['user_type'];
+
+    /**
+     * Determine user_type
+     * @return user_type
+     */
+    switch($user_type) {
+      case 'student':
+        $user_type = 'students';
+        break;
+      
+      case 'employer':
+        $user_type = 'employers';
+        break;
+
+      default:
+        $user_type = 'students';
+    }
+
+    $sql = "SELECT id FROM $user_type WHERE (gebruikersnaam = '$email' AND wachtwoord = '$password') OR (email = '$email' AND wachtwoord = '$password')";
+    $query = $conn->query($sql);
+
+    if($query->num_rows == 1) {
+      $result = $query->fetch_assoc();
+      $_SESSION['user_id'] = $result['id'];
+    } else {
+      echo "Not logged in";
+    }
+    
   }
 ?>
 <!DOCTYPE html>
@@ -109,18 +146,28 @@
           <div id="sendmessage">ingelogd</div>
           <div id="errormessage"></div>
           <div class="well well-lg">
-            <form class="form-inline" action="/action_page.php">
-  <div class="form-group">
-    <label for="email" class="text-success">Gebruikersnaam:</label>
-    <input type="email" class="form-control" id="email">
-  </div>
-  <div class="form-group">
-    <label for="pwd" class="text-success">Wachtwoord:</label>
-    <input type="password" class="form-control" id="pwd">
-  </div>
- 
-  <button type="submit" class="btn btn-primary ">Inloggen</button>
-</form>
+            <form class="form-inline" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+              <div class="form-group">
+                <label for="email" class="text-success">Gebruikersnaam:</label>
+                <input type="text" class="form-control" name="email" id="email">
+              </div>
+              <div class="form-group">
+                <label for="pwd" class="text-success">Wachtwoord:</label>
+                <input type="password" class="form-control" name="pwd" id="pwd">
+              </div>
+
+                <br><br>
+
+              <div class="form-group">
+                <p style="color: black">Inloggen als:</p>
+                <input type="radio" name="user_type" value="student" checked><span style="color: black"> Student</span><br>
+                <input type="radio" name="user_type" value="employer"><span style="color: black"> Bedrijf</span><br>
+              </div>
+
+              <br><br>
+            
+              <button type="submit" name="login_submit" class="btn btn-primary">Inloggen</button>
+            </form>
   </div>
         </div>
       </div>
