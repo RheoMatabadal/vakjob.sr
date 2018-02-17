@@ -1,30 +1,9 @@
-
-<!DOCTYPE html>
 <?php
-  
-  $servername = "localhost";
-  $username = "root";
-  $password = "root";
-  $dbname = "vakjobsr";
-
-  // The connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  //testing the connection
-  if ($conn->connect_error){
-    die("connection failed: " .$conn->connect_error);
-  }
-
-  $sql = 'SELECT * FROM vacatures_test';
-  $result = $conn->query($sql);
+  require 'backend/database.php';
 
     //   if($conn->query($sql) == FALSE){
     //     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     // }
-
-
-  ?>
-<?php
-  require_once 'backend/database.php';
 
   // Report submit
   if(isset($_POST['report_submit'])) {
@@ -131,7 +110,8 @@
             <thead class="thead-default">
               <tr class="active">';
                 
-
+              $sql = 'SELECT * FROM vacatures';
+              $result = $conn->query($sql);
                 
               if($result->num_rows > 0){
                 //testing output of data
@@ -152,19 +132,19 @@
 
                   echo '<tr>
                 <td><h4 style="margin-left: -17px;"><i class="glyphicon glyphicon-map-marker" style="color: black;"></i>' .$row["locatie"].'</h4><br>
-                    <p>'.$row["message"]. '</p><br>
-                    <p>' .$row["start_werktijd"]. '-' .$row["eind_werktijd"]. '</p><br>   
-                    <p>' .$row["datefilter"]. '</p><br>
+                    <p>'.$row["description"]. '</p><br>
+                    <p>' .$row["begin_time"]. ' - ' .$row["end_time"]. '</p><br>   
+                    <p>' .$row["description"]. '</p><br>
                     <a href="javascript:bekijken()" class="btn btn-primary" role="button" >Bekijken</a>
 
                 </td>
               </tr>';
-                } 
+                }
               } else {
                 echo "0 results";
               }
-                ?>
-              }
+              ?>
+              
               
             </tbody>
           </table>
