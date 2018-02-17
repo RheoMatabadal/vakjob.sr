@@ -3,7 +3,7 @@
 
 $servername = "localhost";
   $username = "root";
-  $password = "";
+  $password = "root";
   $dbname = "vakjobsr";
 
   // The connection
@@ -287,52 +287,31 @@ $servername = "localhost";
   <h2>Update toevoegen:</h2>
   <div class="col-md-8">
 
-<form method="POST" enctype="multipart/form-data">
-  <label><h4> Voorgevel foto</h4></label>
-  <div class="input-group">
-      <span class="input-group-btn">
-        <span class="btn btn-default btn-file">
-          Foto toevoegen <input name = "img" type="file" id="imgInp">
-        </span>
-     </span>
-    <input type="text" name ="foto" class="form-control" readonly>
-  </div>
-  <br>
-  <input class="btn btn-primary" type="submit" name="submit_foto" value="Foto toevoegen
-  aan slider" style="background-color: red; color: white;">
+<form  method="POST" enctype="multipart/form-data">
+  <input type="hidden" value="1000000" name="MAX_FILE_SIZE">
+  <input type="file" name="uploadedfile">
+  <button type="submit" name="submit"> Upload voorgevel foto </button>
 </form>
+<?php
+if (isset($_POST['submit'])) {
+  $target_path="fotos/";
+  $target_path=$target_path.basename($_FILES['uploadedfile']['name']);
+  if (move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
+    $conn = new mysqli("localhost", "root", "root", "vakjobsr");
+    $sql = "INSERT into images ('path') values ('$target_path')";
+    if ($conn->query($sql)==TRUE) {
+      echo "<br><br>";
 
-<br>
-<br>
-<?php 
-if (isset($_POST['submit_foto'])) {
-  if (getimagesize($_FILES['image']['tmp_name'])==FALSE) {
-    echo "FOUT, selecteer een geldige foto";
-  }
-  else{
-    $name=addslashes($_FILES['image']['name']);
-    $image=base64_encode(file_get_contents(addslashes($_FILES['image']['tmp_name'])));
-    saveimage($name,$image);
-  }
-}
-function saveimage($name, $image){
-  $servername = "localhost";
-  $username = "root";
-  $password = "root";
-  $dbname = "vakjobsr";
-
-  // The connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  $sql= "INSERT INTO images (img_name,img) VALUES ('$name','$image')";
-  $query = mysqli_query($conn, $sql);
-  if ($query) {
-    echo "foto geupload";
-  }
-  else{
-    echo "foto niet geupload";
+    }
+    else
+    {
+      echo "eRROR:".$sql.$conn->error;
+    }
   }
 }
 ?>
+<br>
+<br>
 
 <h4>Bekend making plaatsen</h4>
   <form action = "" method="post">

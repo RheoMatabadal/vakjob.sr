@@ -105,9 +105,22 @@
 
 
          //   }
+         //originele image
          ?> -->
-        <div class="item active" style="background-image: url(images/slider/bg2.jpg)">
+     <!--   <div class="item active" style="background-image: url(images/slider/bg2.jpg)"> -->
+<?php
+$sql1="SELECT path from images order by id desc limit 1 ";
+$result=$conn->query($sql1);
+if ($result->num_rows>0) {
+  while ($row=$result->fetch_assoc()) {
+    $path=$row['path']; 
+    echo "<img src='$path' height='300' width='600'>  ";
+  }
+ 
+}
 
+$conn->close();
+?>
           <div class="container">
             <div class="row slide-margin">
               <div class="col-sm-6">

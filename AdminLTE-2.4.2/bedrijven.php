@@ -1,5 +1,17 @@
 <?php 
 session_start();
+require 'includes/database.php';
+
+  /**
+ * Actions
+ */
+  if(isset($_GET['submit_delete'])) {
+    $id = $_GET['employer_id'];
+    $sql = "DELETE FROM employers WHERE id = '$id'";
+    if($conn->query($sql)) {
+      header("Location: " . $_SERVER['PHP_SELF']);
+    }
+  }
  ?>
 <!DOCTYPE html>
 <html>
@@ -261,47 +273,32 @@ session_start();
     </tr>
   </thead>
   <tbody id="tbody">
+    <?php 
+      require 'includes/database.php';
+       $sql = "SELECT * FROM employers";
+    $query = $conn->query($sql);
+    while($result = $query->fetch_assoc()) {
+    ?>
     <tr>
-      <td>Chippotle NV</td>
+      <td><?php echo $result['gebruikersnaam']; ?> </td>
       <td><div class="btn-group">
   <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Bedrijf</a>
   <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
     <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
   </a>
   <ul class="dropdown-menu">
-    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
-    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
+    <li><a data-toggle="modal" data-target="#myModal<?php echo $result['id']; ?>"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
+    <li><a href="javascript:verwijderen(<?php echo $result['id']; ?>)"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
   </ul>
 </div></td>
       
     </tr>
-    <tr>
-      <td>Bankoe NV</td>
-      <td><div class="btn-group ">
-  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Bedrijf</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
-    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
-  </ul>
-</div></td>
+      <?php
+    }
+  ?>
+     
       
-    <tr>
-      <td>James Bond NV</td>
-      <td><div class="btn-group ">
-  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Bedrijf</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa-eye fa-fw"></i> Bekijken</a></li>
-    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
-  </ul>
-</div>  </td>
-      
-    </tr>
+    
   </tbody>
 </table>
 </div>
@@ -507,28 +504,35 @@ session_start();
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-<div class="modal fade" id="myModal" role="dialog">
+<?php
+    require 'includes/database.php';
+
+    $sql = "SELECT * FROM employers";
+    $query = $conn->query($sql);
+    while($result = $query->fetch_assoc()) {
+      ?>
+<div class="modal fade" id="myModal<?php echo $result['id']; ?>" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <form class="horizontal">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Bedrijfssnaam</h4>
+            <h4 class="modal-title">Bedrijfssnaam: <?php echo $result['onderwerp']; ?></h4>
           </div>
           <div class="modal-body">
             <div class="form-group">
             <div class="col-md-8">
   <form>
     <div class="form-group input-group-sm">
-      <label for="usr">Gebruikersnaam:</label>
+      <label for="usr">Gebruikersnaam:<?php echo $result['gebruikersnaam']; ?></</label>
       <input type="text" class="form-control" id="gebruikersnaam" readonly>
     </div>
     <div class="form-group input-group-sm">
-      <label for="usr">Email:</label>
+      <label for="usr">Email:Naam:<?php echo $result['email']; ?></</label>
       <input type="email" class="form-control" id="email" readonly>
     </div>
     <div class="form-group input-group-sm">
-      <label for="usr">Adres:</label>
+      <label for="usr">Adres:Naam:<?php echo $result['adres']; ?></</label>
       <input type="text" class="form-control" id="adres" readonly>
     </div>
     <div class="form-group">
@@ -548,6 +552,9 @@ session_start();
       </div>
     </div>
   </div>
+   <?php
+    }
+  ?>
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -615,6 +622,8 @@ session_start();
     },
     callback: function (result) {
         console.log('This was logged in the callback: ' + result);
+         window.location = "<?php echo $_SERVER['PHP_SELF'].'?submit_delete&employer_id='; ?>" + employer_id;
+
     }
 });
  }
