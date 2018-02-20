@@ -1,6 +1,19 @@
 <?php 
-session_start();
- ?>
+  session_start();
+
+  require 'includes/database.php';
+
+  /**
+   * Actions
+   */
+  if(isset($_GET['submit_delete'])) {
+    $id = $_GET['student_id'];
+    $sql = "DELETE FROM students WHERE id = '$id'";
+    if($conn->query($sql)) {
+      header("Location: " . $_SERVER['PHP_SELF']);
+    }
+  }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -262,50 +275,32 @@ session_start();
     </tr>
   </thead>
   <tbody id="tbody">
-    <tr>
-      <td>Kevin</td>
-      <td>Scott</td>
-      <td><div class="btn-group">
-  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Student</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
-    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
-  </ul>
-</div></td>
-      
-    </tr>
-    <tr>
-      <td>Bernard</td>
-      <td>Dorp</td>
-      <td><div class="btn-group ">
-  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Student</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
-    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
-  </ul>
-</div></td>
-      
-    <tr>
-      <td>James</td>
-      <td>Bond</td>
-      <td><div class="btn-group ">
-  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Student</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa-eye fa-fw"></i> Bekijken</a></li>
-    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
-  </ul>
-</div>  </td>
-      
-    </tr>
+  <?php
+
+$sql = "SELECT * FROM students";
+$query = $conn->query($sql);
+while($result = $query->fetch_assoc()) {
+  ?>
+  <tr>
+    <td><?php echo $result['voornaam']; ?></td>
+    <td><?php echo $result['achternaam']; ?></td>
+    <td>
+      <div class="btn-group">
+        <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Student</a>
+        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+          <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a data-toggle="modal" data-target="#myModal<?php echo $result['id']; ?>"><i class="fa fa-pencil fa-fw"></i> Bekijken</a></li>
+          <li><a href="javascript:verwijderen('<?php echo $result['id']; ?>')"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
+        </ul>
+      </div>
+    </td>
+    
+  </tr>
+  <?php
+}
+?>
   </tbody>
 </table>
 </div>
@@ -511,48 +506,63 @@ session_start();
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <form class="horizontal">
+<?php
+  $sql = "SELECT * FROM students";
+  $query = $conn->query($sql);
+  while($result = $query->fetch_assoc()) {
+    ?>
+      <!-- Modal -->
+      <div id="myModal<?php echo $result['id']; ?>" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">StudentNaam</h4>
+            <h4 class="modal-title">Gegevens:</h4>
           </div>
           <div class="modal-body">
-            <div class="form-group">
+          <div class="form-group">
             <div class="col-md-8">
-  <form>
-    <div class="form-group input-group-sm">
-      <label for="usr">Gebruikersnaam:</label>
-      <input type="text" class="form-control" id="gebruikersnaam" readonly>
-    </div>
-    <div class="form-group input-group-sm">
-      <label for="usr">Email:</label>
-      <input type="email" class="form-control" id="email" readonly>
-    </div>
-    <div class="form-group input-group-sm">
-      <label for="usr">Geboorte datum</label>
-      <input type="date" class="form-control" id="adres" readonly>
-    </div>
-    <div class="form-group input-group-sm">
-      <label for="usr">School</label>
-      <input type="text" class="form-control" id="adres" readonly>
-    </div>
-    
-    
-<button type="submit" class="btn btn-default">Sluiten</button>
-  </form>
-</div>
-
+              <!-- <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST"> -->
+                <div class="form-group input-group-sm">
+                  <label for="usr">Gebruikersnaam:</label>
+                  <input type="text" class="form-control" value="<?php echo $result['gebruikersnaam']; ?>" disabled>
+                </div>
+                <div class="form-group input-group-sm">
+                  <label for="usr">Voornaam:</label>
+                  <input type="text" class="form-control" value="<?php echo $result['voornaam']; ?>" disabled>
+                </div>
+                <div class="form-group input-group-sm">
+                  <label for="pwd">Achternaam:</label>
+                  <input type="text" class="form-control" value="<?php echo $result['achternaam']; ?>" disabled>
+                </div>
+                <div class="form-group input-group-sm">
+                  <label for="pwd">E-mail:</label>
+                  <input type="text" class="form-control" value="<?php echo $result['email']; ?>" disabled>
+                </div>
+                <div class="form-group input-group-sm">
+                  <label for="pwd">Geboorte datum:</label>
+                  <input type="text" class="form-control" value="<?php echo $result['geboorte_datum']; ?>" disabled>
+                </div>
+                <div class="form-group input-group-sm">
+                  <label for="pwd">School:</label>
+                  <input type="text" class="form-control" value="<?php echo $result['school']; ?>" disabled>
+                </div>
+            <!-- </form> -->
+          </div>
+          </div>
           </div>
           <div class="modal-footer">
-            
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
-    </form class = "horizontal">
+        </div>
+
       </div>
-    </div>
-  </div>
+      </div>
+    <?php
+  }
+?>
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -605,9 +615,9 @@ session_start();
         }).hide();
     });
 
- function verwijderen() {
+function verwijderen(student_id) {
    bootbox.confirm({
-    message: "weet u zeker dat u deze student wilt verwijderen?",
+    message: "Weet u zeker dat u deze student wilt verwijderen?",
     buttons: {
         confirm: {
             label: 'Ja',
@@ -620,8 +630,9 @@ session_start();
     },
     callback: function (result) {
         console.log('This was logged in the callback: ' + result);
+        window.location = "<?php echo $_SERVER['PHP_SELF'].'?submit_delete&student_id='; ?>" + student_id;
     }
-});
+  });
  }
     </script>
 </body>
