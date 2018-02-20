@@ -291,7 +291,6 @@ if(isset($_POST['gebruiker_bewerken'])) {
   <tbody id="tbody">
 
     <?php
-      require 'includes/database.php';
 
       $sql = "SELECT * FROM admins";
       $query = $conn->query($sql);
