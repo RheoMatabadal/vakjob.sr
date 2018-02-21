@@ -1,5 +1,25 @@
 <?php 
 session_start();
+require 'includes/database.php';
+$loginError = "";
+
+if(isset($_POST['login_submit'])) {
+  // Input
+  $email = $_POST['gebruikersnaam'];
+  $password = $_POST['wachtwoord'];
+
+  $sql = "SELECT id FROM admins WHERE username = '$email' AND wachtwoord = '$password'";
+  $query = $conn->query($sql);
+
+
+  if($query->num_rows == 1) {
+    $result = $query->fetch_assoc();
+    header("Location: start.php");
+  } else {
+    $loginError = '<p style="color:black">Fout bij het inloggen</p>';
+  }
+  
+}
  ?>
 <!doctype html>
 <html lang="en">
@@ -20,7 +40,7 @@ session_start();
   </head>
 
   <body class="text-center">
-    <form class="form-signin" action="includes/login.inc.php" method="POST">
+    <form class="form-signin" action="index.php" method="POST">
       <h1> VAKJOB.SR|CMS</h1>
 
       <label for="inputGberuikersnaam" class="sr-only">Gebruikers naam</label>
@@ -28,7 +48,9 @@ session_start();
       <label for="inputWachtwoord" class="sr-only">Wachtwoord</label>
       <input type="password" name="wachtwoord" id="inputWachtwoord" class="form-control" placeholder="Wachtwoord" required>
    
-      <button class="btn btn-lg btn-success btn-block" name="submit" type="submit">Inloggen</button>
+      <button class="btn btn-lg btn-success btn-block" name="login_submit" type="submit">Inloggen</button>
+      <br><br>
+      <?php echo $loginError; ?>
           </form>
   </body>
 </html>

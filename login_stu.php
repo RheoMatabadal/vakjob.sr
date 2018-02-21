@@ -1,6 +1,28 @@
 <?php
   session_start();
-  require_once 'backend/database.php';
+  require 'backend/database.php';
+
+  // User session
+  $add_vacature = '<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Registreren <b class="caret"></b></a>
+ <ul class="dropdown-menu">
+<li><a href="registreer_stu.php">Registreer bedrijf</a></li>
+<li><a href="registreer_stu.php">Registreer student</a></li>
+   
+
+</ul>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Inloggen <b class="caret"></b></a>
+ <ul class="dropdown-menu">
+<li><a href="login_bed.php">Bedrijf login</a></li>
+<li><a href="login_stu.php">Student login</a></li>
+</ul>';
+  if($_SESSION['user_id'] != "") {
+    $add_vacature = '<li role="presentation"><a href="backend/logout.php">Uitloggen</a></li>';
+    if($_SESSION['user_type'] == 'employer') {
+      
+    }
+  }
 
   // Report submit
   if(isset($_POST['report_submit'])) {
@@ -17,13 +39,14 @@
       header("Location: login_stu.php");
     }
   }
-
+  $loginError = '';
   // Login
   if(isset($_POST['login_submit'])) {
     // Input
     $email = $_POST['email'];
     $password = $_POST['pwd'];
     $user_type = $_POST['user_type'];
+    $user_type_stock = $_POST['user_type'];
 
     /**
      * Determine user_type
@@ -45,11 +68,17 @@
     $sql = "SELECT id FROM $user_type WHERE (gebruikersnaam = '$email' AND wachtwoord = '$password') OR (email = '$email' AND wachtwoord = '$password')";
     $query = $conn->query($sql);
 
+
     if($query->num_rows == 1) {
       $result = $query->fetch_assoc();
       $_SESSION['user_id'] = $result['id'];
+      $_SESSION['user_type'] = $user_type_stock;
+      if($user_type_stock == "employer") {
+        header("Location: vacatures_reg.html");
+      }
+      header("Location: index.php");
     } else {
-      echo "Not logged in";
+      $loginError = '<p style="color:black">Fout bij het inloggen</p>';
     }
     
   }
@@ -90,30 +119,19 @@
 							<span class="icon-bar"></span>
 						</button>
             <div class="navbar-brand">
-              <a href="index.html"><h1><span>VAKJOB</span>.SR</h1></a>
+              <a href="index.php"><h1><span>VAKJOB</span>.SR</h1></a>
             </div>
           </div>
 
           <div class="navbar-collapse collapse">
             <div class="menu">
               <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation"><a href="index.html">Home</a></li>
+                <li role="presentation"><a href="index.php">Home</a></li>
                 <li role="presentation"><a href="vacatures.html">Vacatures</a></li>
                 <li role="presentation"><a href="contact.html" >Contact</a></li>
-                 <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Registreren <b class="caret"></b></a>
-               <ul class="dropdown-menu">
-            <li><a href="registreer_bed.html">Registreer bedrijf</a></li>
-            <li><a href="registreer_stu.html">Registreer student</a></li>
-                 
-
-          </ul>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Inloggen <b class="caret"></b></a>
-               <ul class="dropdown-menu">
-            <li><a href="login_bed.php">Bedrijf login</a></li>
-            <li><a href="login_stu.php">Student login</a></li>
-          </ul>
+                <?php echo $add_vacature; ?>
+                
+          
         </li>
         </li>
               </ul>
@@ -167,6 +185,8 @@
               <br><br>
             
               <button type="submit" name="login_submit" class="btn btn-primary">Inloggen</button>
+              <br>
+              <?php echo $loginError; ?>
             </form>
   </div>
         </div>

@@ -1,5 +1,17 @@
 <?php 
 session_start();
+require 'includes/database.php';
+
+/**
+ * Actions
+ */
+if(isset($_GET['submit_delete'])) {
+  $id = $_GET['vacature_id'];
+  $sql = "DELETE FROM vacatures WHERE id = '$id'";
+  if($conn->query($sql)) {
+    header("Location: " . $_SERVER['PHP_SELF']);
+  }
+}
  ?>
 <!DOCTYPE html>
 <html>
@@ -262,53 +274,33 @@ session_start();
     </tr>
   </thead>
   <tbody id="tbody">
-    <tr>
-      <td>Tuinman</td>
-      <td>prako NV</td>
-      <td>12-12-2012 </td>
-      <td><div class="btn-group">
-  <a class="btn btn-primary" href="#"><i class="fa fa-list fa-fw"></i> Vacature</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
-    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
-  </ul>
-</div></td>
-      
-    </tr>
-    <tr>
-      <td>Brand assistent</td>
-      <td>BeerBOS BV</td>
-      <td>12-03-2013</td>
-      <td><div class="btn-group ">
-  <a class="btn btn-primary" href="#"><i class="fa fa-list fa-fw"></i> Vacature</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa fa-eye fa-fw"></i> Bekijken</a></li>
-    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
-  </ul>
-</div></td>
-      
-    <tr>
-      <td>Vlinder Verzorger</td>
-      <td>De Ananas group ltd.</td>
-      <td>12-05-2011</td>
-      <td><div class="btn-group ">
-  <a class="btn btn-primary" href="#"><i class="fa fa-list fa-fw"></i> Vacature</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa-eye fa-fw"></i> Bekijken</a></li>
-    <li><a href="javascript:verwijderen()"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
-  </ul>
-</div>  </td>
-      
-    </tr>
+  <?php
+
+    $sql = "SELECT employers.*, vacatures.*, vacatures.id AS vacature_id FROM vacatures INNER JOIN employers ON employers.id = vacatures.employer_id";
+    $query = $conn->query($sql);
+    while($result = $query->fetch_assoc()) {
+      ?>
+      <tr>
+        <td><?php echo $result['name']; ?></td>
+        <td><?php echo $result['bedrijfsnaam']; ?></td>
+        <td><?php echo $result['begin_time']; ?></td>
+        <td>
+          <div class="btn-group">
+            <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Vacature</a>
+            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+              <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a data-toggle="modal" data-target="#myModal<?php echo $result['id']; ?>"><i class="fa fa-pencil fa-fw"></i> Bewerken</a></li>
+              <li><a href="javascript:verwijderen('<?php echo $result['vacature_id']; ?>')"><i class="fa fa-trash-o fa-fw"></i>Verwijderen</a></li>
+            </ul>
+          </div>
+        </td>
+        
+      </tr>
+      <?php
+    }
+    ?>
   </tbody>
 </table>
 </div>
@@ -514,52 +506,60 @@ session_start();
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <form class="horizontal">
+<?php
+  $sql = "SELECT employers.*, vacatures.*, vacatures.id AS vacature_id FROM vacatures INNER JOIN employers ON employers.id = vacatures.employer_id";
+  $query = $conn->query($sql);
+  while($result = $query->fetch_assoc()) {
+    ?>
+      <!-- Modal -->
+      <div id="myModal<?php echo $result['vacature_id']; ?>" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Vacature Titel</h4>
+            <h4 class="modal-title">Gegevens:</h4>
           </div>
           <div class="modal-body">
-            <div class="form-group">
+          <div class="form-group">
             <div class="col-md-8">
-  <form>
-    <div class="form-group input-group-sm">
-      <label for="usr">Locatie</label><i class="fa fa-map-marker fa-fw"></i>
-      <input type="text" class="form-control" id="gebruikersnaam" readonly>
-    </div>
-    <div class="form-group input-group-sm">
-      <label for="usr">Email:</label>
-      <input type="email" class="form-control" id="email" readonly>
-    </div>
-    <div class="form-group input-group-sm">
-      <label for="usr">Adres:</label>
-      <input type="text" class="form-control" id="adres" readonly>
-    </div>
-    <div class="form-group input-group-sm">
-      <label for="usr">Start Datum</label>
-      <input type="date" class="form-control" id="startdatum" readonly>
-    </div>
-    <div class="form-group input-group-sm">
-      <label for="usr">Eind Datum</label>
-      <input type="date" class="form-control" id="Einddatum" readonly>
-    </div>
-    
-    
-<button type="submit" class="btn btn-default">Sluiten</button>
-  </form>
-</div>
-
+              <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+                <div class="form-group input-group-sm">
+                  <label for="usr">Locatie</label><i class="fa fa-map-marker fa-fw"></i>
+                  <input type="text" value="<?php echo $result['location']; ?>" class="form-control" id="gebruikersnaam" readonly>
+                </div>
+                <div class="form-group input-group-sm">
+                  <label for="usr">Email:</label>
+                  <input type="email" value="<?php echo $result['email']; ?>" class="form-control" id="email" readonly>
+                </div>
+                <div class="form-group input-group-sm">
+                  <label for="usr">Adres:</label>
+                  <input type="text" class="form-control" value="<?php echo $result['adres']; ?>" id="adres" readonly>
+                </div>
+                <div class="form-group input-group-sm">
+                  <label for="usr">Start Datum</label>
+                  <input type="text" value="<?php echo $result['begin_time']; ?>" class="form-control" id="startdatum" readonly>
+                </div>
+                <div class="form-group input-group-sm">
+                  <label for="usr">Eind Datum</label>
+                  <input type="text" value="<?php echo $result['end_time']; ?>" class="form-control" id="Einddatum" readonly>
+                </div>
+              <button name="gebruiker_bewerken" class="btn btn-default" >Sluiten</button>
+            </form>
+          </div>
+          </div>
           </div>
           <div class="modal-footer">
-            
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
-    </form class = "horizontal">
+        </div>
+
       </div>
-    </div>
-  </div>
+      </div>
+    <?php
+  }
+?>
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -612,7 +612,7 @@ session_start();
         }).hide();
     });
 
- function verwijderen() {
+ function verwijderen(vacature_id) {
    bootbox.confirm({
     message: "weet u zeker dat u deze vacature wilt verwijderen?",
     buttons: {
@@ -627,6 +627,7 @@ session_start();
     },
     callback: function (result) {
         console.log('This was logged in the callback: ' + result);
+        window.location = "<?php echo $_SERVER['PHP_SELF'].'?submit_delete&vacature_id='; ?>" + vacature_id;
     }
 });
  }

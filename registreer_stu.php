@@ -1,4 +1,27 @@
 <?php
+session_start();
+// User session
+$add_vacature = '<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Registreren <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="registreer_stu.php">Registreer bedrijf</a></li>
+<li><a href="registreer_stu.php">Registreer student</a></li>
+ 
+
+</ul>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Inloggen <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="login_stu.php">Bedrijf login</a></li>
+<li><a href="login_stu.php">Student login</a></li>
+</ul>';
+if($_SESSION['user_id'] != "") {
+  $add_vacature = '<li role="presentation"><a href="backend/logout.php">Uitloggen</a></li>';
+  if($_SESSION['user_type'] == 'employer') {
+    
+  }
+}
+
   if(isset($_POST['submit'])) {
     require 'backend/database.php'; // Require database
 
@@ -114,21 +137,7 @@
                 <li role="presentation"><a href="index.php">Home</a></li>
                 <li role="presentation"><a href="vacatures.php">Vacatures</a></li>
                 <li role="presentation"><a href="contact.php" >Contact</a></li>
-                 <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Registreren <b class="caret"></b></a>
-               <ul class="dropdown-menu">
-            <li><a href="registreer_bed.php">Registreer bedrijf</a></li>
-            <li><a href="registreer_stu.php">Registreer student</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Inloggen <b class="caret"></b></a>
-               <ul class="dropdown-menu">
-            <li><a href="login_bed.php">Bedrijf login</a></li>
-            <li><a href="login_stu.php">Student login</a></li>
-          </ul>
-        </li>
-              </ul>
+                <?php echo $add_vacature; ?>
               
             </div>
           </div>

@@ -1,32 +1,55 @@
 <!DOCTYPE html>
 <?php
 
-$servername = "localhost";
-  $username = "root";
-  $password = "root";
-  $dbname = "vakjobsr";
-
-  // The connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  //testing the connection
-  if ($conn->connect_error){
-    die("connection failed: " .$conn->connect_error);
-  }
+require 'includes/database.php';
 
   if(isset($_POST["submit"])){
 
     $titel = $_POST["titel"];
     $message = $_POST["message"];
-    $img = $_POST["img"];
-    $foto = $_POST["foto"];
+    // $img = $_POST["img"];
+    // $foto = $_POST["foto"];
+    @$target_dir = "../uploads/";
+		@$image = basename($_FILES["photo"]["name"]);
+		@$ext = explode('.', $image);
+		@$ext_count = count($ext); $ext_count = $ext_count-1;
+		@$newImage = $target_dir.time().'.'.$ext[$ext_count]; //Renamed file
 
-    $sql = "INSERT INTO announcements (user_id, topic, description, img) VALUES (1, '$titel', '$message', '$foto');";
+    // $sql = "INSERT INTO announcements (admin_id, topic, description, img) VALUES (1, '$titel', '$message', '$newImage');";
+    $sql = "INSERT INTO announcements (admin_id, topic, description, img) VALUES (1, '$titel', '$message', '$newImage');";
 
     if($conn->query($sql) == TRUE){
       echo "Report verzonden";
     } else{
       echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
+
+    $target_file = $target_dir . $image;
+		$uploadOk = 1;
+		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+		// Check if image file is a actual image or fake image
+		if(isset($_POST["submit"])) {
+		    @$check = getimagesize($_FILES["photo"]["tmp_name"]);
+		    if($check !== false) {
+		        // echo "File is an image - " . $check["mime"] . ".";
+		        $uploadOk = 1;
+		    } else {
+		        // echo "File is not an image.";
+		        $uploadOk = 0;
+		    }
+		}
+		// Check if file already exists
+		if (file_exists($target_file)) {
+		    // echo "Sorry, file already exists.";
+		    $uploadOk = 0;
+		}
+		// Check if $uploadOk is set to 0 by an error
+		if ($uploadOk == 0) {
+		    // echo "Sorry, your file was not uploaded.";
+		// if everything is ok, try to upload file
+		} else {
+		    move_uploaded_file($_FILES["photo"]["tmp_name"], $newImage);
+		}
   }
 
   // if(isset($_POST["submitslider"])){
@@ -289,32 +312,32 @@ $servername = "localhost";
 
 <form  method="POST" enctype="multipart/form-data">
   <input type="hidden" value="1000000" name="MAX_FILE_SIZE">
-  <input type="file" name="uploadedfile">
+  <input type="file" name="photo">
   <button type="submit" name="submit"> Upload voorgevel foto </button>
 </form>
 <?php
-if (isset($_POST['submit'])) {
-  $target_path="fotos/";
-  $target_path=$target_path.basename($_FILES['uploadedfile']['name']);
-  if (move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
-    $conn = new mysqli("localhost", "root", "root", "vakjobsr");
-    $sql = "INSERT into images ('path') values ('$target_path')";
-    if ($conn->query($sql)==TRUE) {
-      echo "<br><br>";
+// if (isset($_POST['submit'])) {
+//   $target_path="fotos/";
+//   $target_path=$target_path.basename($_FILES['uploadedfile']['name']);
+//   if (move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
+//     $conn = new mysqli("localhost", "root", "root", "vakjobsr");
+//     $sql = "INSERT into images ('path') values ('$target_path')";
+//     if ($conn->query($sql)==TRUE) {
+//       echo "<br><br>";
 
-    }
-    else
-    {
-      echo "eRROR:".$sql.$conn->error;
-    }
-  }
-}
+//     }
+//     else
+//     {
+//       echo "eRROR:".$sql.$conn->error;
+//     }
+//   }
+// }
 ?>
 <br>
 <br>
 
 <h4>Bekend making plaatsen</h4>
-  <form action = "" method="post">
+  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <div class="form-group input-group-sm">
       <label placeholder="Titel" for="ttl">Titel:</label>
       <input type="text" name="titel" class="form-control" id="titel">
@@ -326,12 +349,12 @@ if (isset($_POST['submit'])) {
         <div class="input-group">
             <span class="input-group-btn">
                 <span class="btn btn-default btn-file">
-                    Foto toevoegen <input name = "img" type="file" id="imgInp">
+                    Foto toevoegen <input name="photo" type="file" id="imgInp">
                 </span>
             </span>
-            <input type="text" name ="foto" class="form-control" readonly>
+            <input type="text" name="img" class="form-control" readonly>
         </div>
-        <img id='img-upload'/>
+        <img id='img-upload' width="auto" height="50px"/>
     </div>
 
     <div>
@@ -475,7 +498,8 @@ $(document).ready( function() {
         readURL(this);
     });   
 
-  });</script>
+  });
+  </script>
 
   });
 

@@ -280,7 +280,7 @@ require 'includes/database.php';
     while($result = $query->fetch_assoc()) {
     ?>
     <tr>
-      <td><?php echo $result['gebruikersnaam']; ?> </td>
+      <td><?php echo ucfirst($result['gebruikersnaam']); ?> </td>
       <td><div class="btn-group">
   <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> Bedrijf</a>
   <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
@@ -505,56 +505,54 @@ require 'includes/database.php';
 </div>
 <!-- ./wrapper -->
 <?php
-    require 'includes/database.php';
+  $sql = "SELECT * FROM employers";
+  $query = $conn->query($sql);
+  while($result = $query->fetch_assoc()) {
+    ?>
+      <!-- Modal -->
+      <div id="myModal<?php echo $result['id']; ?>" class="modal fade" role="dialog">
+      <div class="modal-dialog">
 
-    $sql = "SELECT * FROM employers";
-    $query = $conn->query($sql);
-    while($result = $query->fetch_assoc()) {
-      ?>
-<div class="modal fade" id="myModal<?php echo $result['id']; ?>" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <form class="horizontal">
+        <!-- Modal content-->
+        <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Bedrijfssnaam: <?php echo $result['onderwerp']; ?></h4>
+            <h4 class="modal-title">Bedrijfsnaam: <?php echo ucfirst($result['bedrijfsnaam']); ?></h4>
           </div>
           <div class="modal-body">
-            <div class="form-group">
+          <div class="form-group">
             <div class="col-md-8">
-  <form>
-    <div class="form-group input-group-sm">
-      <label for="usr">Gebruikersnaam:<?php echo $result['gebruikersnaam']; ?></</label>
-      <input type="text" class="form-control" id="gebruikersnaam" readonly>
-    </div>
-    <div class="form-group input-group-sm">
-      <label for="usr">Email:Naam:<?php echo $result['email']; ?></</label>
-      <input type="email" class="form-control" id="email" readonly>
-    </div>
-    <div class="form-group input-group-sm">
-      <label for="usr">Adres:Naam:<?php echo $result['adres']; ?></</label>
-      <input type="text" class="form-control" id="adres" readonly>
-    </div>
-    <div class="form-group">
-      <img class="d-flex mr-3" alt="Generic placeholder image">
-      
-    </div>
-    
-<button type="submit" class="btn btn-default">Sluiten</button>
-  </form>
-</div>
+              <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+                <div class="form-group input-group-sm">
+                  <label for="usr">Gebruikersnaam:</label>
+                  <input type="text" class="form-control" name="gebruikersnaam" value="<?php echo $result['gebruikersnaam']; ?>" id="gebruikersnaam">
+                </div>
 
+                <div class="form-group input-group-sm">
+                  <label for="usr">E-mail:</label>
+                  <input type="text" class="form-control" name="gebruikersnaam" value="<?php echo $result['email']; ?>" id="gebruikersnaam">
+                </div>
+
+                <div class="form-group input-group-sm">
+                  <label for="usr">Adres:</label>
+                  <input type="text" class="form-control" name="gebruikersnaam" value="<?php echo $result['adres']; ?>" id="gebruikersnaam">
+                </div>
+                
+              <button type="button" data-dismiss="modal" class="btn btn-default">Sluiten</button>
+            </form>
+          </div>
+          </div>
           </div>
           <div class="modal-footer">
-            
+            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
           </div>
-    </form class = "horizontal">
+        </div>
+
       </div>
-    </div>
-  </div>
-   <?php
-    }
-  ?>
+      </div>
+    <?php
+  }
+?>
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->

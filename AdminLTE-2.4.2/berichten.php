@@ -278,7 +278,7 @@
   <?php
     require 'includes/database.php';
 
-    $sql = "SELECT * FROM employers";
+    $sql = "SELECT * FROM messages";
     $query = $conn->query($sql);
     while($result = $query->fetch_assoc()) {
       ?>

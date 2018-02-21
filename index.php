@@ -1,7 +1,7 @@
 <?php
-  require_once 'backend/database.php';
-
-  // Report submit
+session_start();
+require 'backend/database.php';
+    // Report submit
   if(isset($_POST['report_submit'])) {
     require 'backend/database.php'; // Require database
 
@@ -17,6 +17,28 @@
       header("Location: index.php");
     }
   }
+
+// User session
+$add_vacature = '<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Registreren <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="registreer_stu.php">Registreer bedrijf</a></li>
+<li><a href="registreer_stu.php">Registreer student</a></li>
+ 
+
+</ul>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Inloggen <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="login_stu.php">Bedrijf login</a></li>
+<li><a href="login_stu.php">Student login</a></li>
+</ul>';
+if($_SESSION['user_id'] != "") {
+  $add_vacature = '<li role="presentation"><a href="backend/logout.php">Uitloggen</a></li>';
+  if($_SESSION['user_type'] == 'employer') {
+    
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,21 +86,8 @@
                 <li role="presentation"><a href="index.php">Home</a></li>
                 <li role="presentation"><a href="vacatures.php">Vacatures</a></li>
                 <li role="presentation"><a href="contact.php" >Contact</a></li>
-                 <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Registreren <b class="caret"></b></a>
-               <ul class="dropdown-menu">
-            <li><a href="registreer_stu.php">Registreer bedrijf</a></li>
-            <li><a href="registreer_stu.php">Registreer student</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" class="active">Inloggen <b class="caret"></b></a>
-               <ul class="dropdown-menu">
-            <li><a href="login_stu.php">Bedrijf login</a></li>
-            <li><a href="login_stu.php">Student login</a></li>
-          </ul>
-        </li>
-              </ul>
+                 
+                <?php echo $add_vacature; ?>
             
             </div>
           </div>
@@ -107,20 +116,7 @@
          //   }
          //originele image
          ?> -->
-     <!--   <div class="item active" style="background-image: url(images/slider/bg2.jpg)"> -->
-<?php
-$sql1="SELECT path from images order by id desc limit 1 ";
-$result=$conn->query($sql1);
-if ($result->num_rows>0) {
-  while ($row=$result->fetch_assoc()) {
-    $path=$row['path']; 
-    echo "<img src='$path' height='300' width='600'>  ";
-  }
- 
-}
-
-$conn->close();
-?>
+       <div class="item active" style="background-image: url(images/slider/bg2.jpg)">
           <div class="container">
             <div class="row slide-margin">
               <div class="col-sm-6">
@@ -189,20 +185,22 @@ $conn->close();
       <div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
         <h2>Over ons</h2>
         <img src="images/6.jpg" class="img-responsive" />
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum erat libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque libero,
-          pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-        </p>
+        <p>VakJob.sr wil met dit platform heel graag:</p>
+      <ul style="color:black;">
+      <li style="color:black;">De ondernemers uit Suriname helpen om hun doel te bereiken. Wij geloven dat met een goed platform, dat over goede tools beschikt, dit mogelijk is.</li>
+      <li style="color:black;">De vrijheid geven aan ondernemers om op een simpele wijze aan geschikte personeel te komen. De vrijheid om zelf te bepalen wie aan welk project mag werken. De vrijheid om heel veel tijd en moeite te besparen, door niet te staan in de file om dit te kunnen realiseren.</li>
+      <li style="color:black;">Iets moois bouwen. Wij rusten niet voordat er duizenden bedrijven zijn gestart dankzij VakJob.sr . Wij willen een mooi bedrijf bouwen met leuke mensen en het leven voor ondernemers makkelijker maken.</li>
+      </ul>
       </div>
 
       <div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-        <h2>Template built with Twitter Bootstrap</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum erat libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque libero,
-          pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum erat libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-            libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-          </p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum erat libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-            libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque </p>
+        <!-- <h2>Over ons</h2> -->
+        <br><br><br><br>
+        <p>VakJob.sr maakt het mogelijk voor bedrijven om op een eenvoudige wijze aan personeel te komen.</p>
+      <p>En voor werkzoekenden aan een passende job.</p>
+      <p>Dankzij het geavanceerd systeem op de website krijgen kandidaten, die zich hebben opgegeven voor specifieke type werk, een e-mail zodra er een vacature is geplaatst.</p>
+      <p>Hierdoor is het mogelijk dat vacatures binnen een paar uur al sollicitanten krijgen.</p>
+      
       </div>
     </div>
   </div>
@@ -229,6 +227,7 @@ $conn->close();
       </div> -->
 
       <?php
+      
         // Announcements pagination
         if(isset($_GET['page_number'])) {
           $page_number = $_GET['page_number'];
@@ -237,7 +236,7 @@ $conn->close();
         }
         $limit_announcement = $page_number + 3;
 
-        $sql = "SELECT * FROM announcements LIMIT $page_number ,$limit_announcement";
+        $sql = "SELECT * FROM announcements LIMIT $page_number, $limit_announcement";
         $query = $conn->query($sql);
         while($result = $query->fetch_assoc()) {
           // print_r($result);

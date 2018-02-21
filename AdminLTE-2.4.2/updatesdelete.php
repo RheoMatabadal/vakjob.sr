@@ -1,16 +1,6 @@
 <?php
 
- $servername = "localhost";
-  $username = "root";
-  $password = "";
-  $dbname = "vakjobsr";
-
-  // The connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  //testing the connection
-  if ($conn->connect_error){
-    die("connection failed: " .$conn->connect_error);
-  }
+require 'includes/database.php';
 
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -21,7 +11,7 @@
          $query = "DELETE FROM announcements WHERE id=" . $rowToDelete . " LIMIT 1";
          $result = mysqli_query($conn, $query);
 
-         header('Location:http://localhost/vakjob.sr/AdminLTE-2.4.2/updates.php');
+         header('http://localhost/Git/vakjob.sr/AdminLTE-2.4.2/updates.php');
          }
 }
 

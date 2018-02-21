@@ -95,16 +95,18 @@
   <div id="breadcrumb">
     <div class="container">
       <div class="breadcrumb">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.php">Home</a></li>
         <li>Vacatures</li>
       </div>
     </div>
   </div>
+  
 <?php
   echo '<section id="blog" class="container">
     <div class="blog">
       <div class="row">
         <div class="col-xs-10 col-xs-offset-1">
+        <a href="vacatures_reg.html" class="btn btn-primary" role="button">Vacature toevoegen</a>
           
         <table class="table">
             <thead class="thead-default">
@@ -151,6 +153,8 @@
         </div>
       </div>
     </div>
+
+    
         
           <!--/.blog-item-->
 
@@ -280,14 +284,14 @@
     function bekijken(){
       swal({
   title: "Keuken hulp",
-  text: "Assisteren in de keuken. Kom en help in de keuken van Krasnapolsky",
+  text: "Assisteren in de keuken. Kom en help in de keuken van Krasnapolsky. U krijgt binnenkort een email van ons terug.",
   showCancelButton: true,
   cancelButtonText: "Terug",
   confirmButtonText: "Solliciteer nu",
   closeOnConfirm: false
 },
 function(){
-  location.href = 'http://google.com';
+  location.href = '#';
 });
     } 
 
